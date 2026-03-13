@@ -1,0 +1,130 @@
+{% extends 'includes/header.html' %}
+{% load static %}
+{% block content %}
+<link rel="stylesheet" href="{% static 'Css/bill.css' %}">
+<style>
+  .product-table {
+    margin-top: 15px;
+    background: #1a1a1a;
+    border-radius: 8px;
+    overflow: hidden;
+    width:600px;
+}
+.order-container {
+    max-width: 1300px;
+    margin: 40px auto;
+    padding: 25px;
+    background: #2a2a2a;
+    border-radius: 10px;
+    box-shadow: 0 6px 15px rgba(0,0,0,0.3);
+    font-family: 'Segoe UI', sans-serif;
+    color: #f5f5f5;
+}
+</style>
+<div class="order-container">
+  <div class="order-wrapper">
+
+    <!-- ✅ JS Alert for Django Messages -->
+    {% if messages %}
+      <script>
+        {% for message in messages %}
+          alert("{{ message|escapejs }}");
+        {% endfor %}
+      </script>
+    {% endif %}
+
+    <!-- ✅ Order Confirmation -->
+    <div class="order-header">
+      <h2>✅ Order Confirmation Successfully!</h2>
+      <p>Thank you, <strong>{{ order.customer_name }}</strong>. Your order has been confirmed.</p>
+    </div>
+
+    <div class="order-content">
+      <!-- ✅ Left Column: Customer & Order Info -->
+      <div class="order-left">
+        <div class="details-box">
+          <h2>🧾 Bill Details</h2><br>
+          <p><strong>Order ID:</strong> {{ order.id }}</p>
+          <p><strong>Bill ID:</strong> INV-HY000{{ order.id }}</p>
+          <p><strong>Customer Name:</strong> {{ order.customer_name }}</p>
+          <p><strong>Email:</strong> {{ order.email }}</p>
+          <p><strong>Phone:</strong> {{ order.phone }}</p>
+          <p><strong>Address:</strong> {{ order.address }}, {{ order.city }}, {{ order.state }}, {{ order.country }}</p>
+          <p><strong>Status:</strong> {{ order.status }}</p>
+          <p><strong>Date:</strong> {{ date|date:"M d, Y H:i" }}</p>
+        </div>
+
+        <!-- Payment Summary -->
+        <div class="summary-box">
+          <h4>💰 Payment Summary</h4>
+          <p><strong>Subtotal:</strong> ₹{{ subtotal|floatformat:2 }}</p>
+          <p><strong>GST (8%):</strong> ₹{{ tax|floatformat:2 }}</p>
+          <hr>
+          <p class="final-amount"><strong>Final Total:</strong> ₹{{ total|floatformat:2 }}</p>
+        </div>
+      </div>
+
+      <!-- ✅ Right Column: Product List + Summary -->
+      <div class="order-right">
+        
+        <!-- Product Table -->
+        <div class="product-table">
+          <h3>🛒 Ordered Products</h3>
+          <table>
+            <thead>
+              <tr>
+                <th>Image</th>
+                <th>Product</th>
+                <th>Qty</th>
+                <th>Price</th>
+                <th>Subtotal</th>
+                <th>Action</th>
+              </tr>
+            </thead>
+            <tbody>
+              {% for item in order_items %}
+              <tr id="item-row-{{ item.id }}">
+                <td><img src="{{ item.product.image.url }}" alt="{{ item.product.product_name }}" width="60"></td>
+                <td>{{ item.product.product_name }}</td>
+                <td>{{ item.quantity }}</td>
+                <td>₹{{ item.price|floatformat:2 }}</td>
+                <td>₹{{ item.subtotal|floatformat:2 }}</td>
+                <td>
+                    <a href="{% url 'remove_order_item' item.order.id item.product.id %}" 
+                    class="btn btn-danger"
+                    onclick="return confirm('Are you sure you want to remove this item?');">
+                    Cancal
+                  </a>
+                </td>
+              </tr>
+              {% empty %}
+              <tr><td colspan="6">No products found for this order.</td></tr>
+              {% endfor %}
+            </tbody>
+          </table>
+        </div><br><br><br><br>
+
+        <!-- Actions -->
+        <div class="action-buttons">
+          <a href="{% url 'product' %}" class="btn btn-secondary">Continue Shopping</a>
+          <a href="#" onclick="confirmPrint({{ order.id }})" class="btn btn-primary">Payment processed</a>
+        </div>
+
+      </div>
+    </div>
+  </div>
+</div>
+
+<script>
+function confirmPrint(orderId) {
+    const wantsPdf = confirm("if You Payment Is Offline  Click Ok , if Payment Is online  Click Cancal");
+    if (wantsPdf) {
+        window.location.href = `/bill/pdf/${orderId}/`;
+    } else {
+        window.location.href = `/bill/html/${orderId}/`;
+    }
+}
+</script>
+
+{% include 'includes/footer.html' %}
+{% endblock %}

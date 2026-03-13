@@ -1,0 +1,41 @@
+{% extends "base.html" %}
+
+{% block content %}
+  <main class="hero-content" aria-labelledby="main-heading" style="text-align: center; padding: 40px;">
+    <h2>{{ user_name }} has successfully logged out.</h2>
+    <p>Thank you for spending your valuable time on our website.</p>
+    <p>We hope to see you again soon!</p>
+    <br><br>
+    <a href="{% url 'login' %}" class="buy-now-btn1">Login Again</a>
+  </main>
+{% endblock %}
+
+{% block extra_css %}
+<style>
+  .buy-now-btn1 {
+    padding: 10px 20px;
+    background-color: #007bff;
+    color: white;
+    text-decoration: none;
+    border-radius: 4px;
+  }
+
+  .buy-now-btn1:hover {
+    background-color: #0056b3;
+  }
+
+  footer {
+    background-color: #f8f9fa;
+    padding: 20px;
+    text-align: center;
+    color: #333;
+    margin-top: 60px;
+  }
+</style>
+{% endblock %}
+
+{% block footer %}
+  <footer>
+    &copy; {{ now|date:"Y" }} YourWebsiteName. All rights reserved.
+  </footer>
+{% endblock %}

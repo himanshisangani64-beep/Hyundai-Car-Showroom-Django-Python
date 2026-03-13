@@ -1,0 +1,110 @@
+.user-container {
+  padding: 20px;
+  background: #f9fafb;
+  border-radius: 12px;
+  box-shadow: 0 4px 10px rgba(0,0,0,0.05);
+}
+
+.user-container .header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 15px;
+}
+
+.user-container h2 {
+  font-size: 22px;
+  font-weight: 600;
+  color: #1e3a8a;
+}
+
+.user-container p {
+  color: #6b7280;
+  font-size: 14px;
+  margin-top: 4px;
+}
+
+.table-wrapper {
+  overflow-x: auto;
+}
+
+.user-table {
+  width: 100%;
+  border-collapse: collapse;
+  background: white;
+  border-radius: 10px;
+  overflow: hidden;
+}
+
+.user-table thead {
+  background: #1e3a8a;
+  color: white;
+  text-align: left;
+}
+
+.user-table th,
+.user-table td {
+  padding: 12px 15px;
+  border-bottom: 1px solid #e5e7eb;
+  font-size: 14px;
+}
+
+.user-table th.action-col {
+  text-align: center;
+}
+
+
+
+.no-data {
+  text-align: center;
+  padding: 15px;
+  color: #9ca3af;
+}
+
+.actions {
+  display: flex;
+  justify-content: center;
+  gap: 6px;
+}
+
+.btn {
+  padding: 5px 10px;
+  font-size: 13px;
+  font-weight: 500;
+  border-radius: 6px;
+  text-decoration: none;
+  transition: 0.2s;
+}
+
+.btn.add {
+  background: #10b981;
+  color: white;
+}
+
+.btn.add:hover {
+  background: #059669;
+}
+
+.btn.view {
+  background: #3b82f6;
+  color: white;
+}
+.btn.view:hover {
+  background: #1d4ed8;
+}
+
+.btn.edit {
+  background: #f59e0b;
+  color: white;
+}
+.btn.edit:hover {
+  background: #b45309;
+}
+
+.btn.delete {
+  background: #ef4444;
+  color: white;
+}
+.btn.delete:hover {
+  background: #b91c1c;
+}

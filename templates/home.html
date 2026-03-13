@@ -1,0 +1,15 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block content%}
+    <main class="hero-content" aria-labelledby="main-heading">
+      <h2>Welcome, {{ request.session.cname }}!</h2>
+      <h1 id="main-heading"><span class="gold">Find</span> Your Dream</h1>
+      <p>a limousine for everyone</p><br><br>
+      <a href="{% url 'login' %}"  class="buy-now-btn1">Login</a>
+      <a href="{% url 'registration' %}" class="buy-now-btn1">Register</a>
+    </main>
+  </div>
+{% include 'includes/footer.html' %} 
+</body>
+</html>
+{% endblock %}

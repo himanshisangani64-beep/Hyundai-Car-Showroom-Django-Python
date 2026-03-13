@@ -1,0 +1,65 @@
+{% extends 'includes/header.html' %}
+{% load static %}
+{% block content %}
+<link rel="stylesheet" href="{% static 'css/review.css' %}">
+<br><br>
+<form class="form1" action="{% url 'rev' %}" method="post" onsubmit="return handleSubmit()">
+  {% csrf_token %}
+  <div class="message_img">
+    <img src="{% static 'images/photo/images.jpg' %}" alt="Reviewer image" />
+  </div>
+  <h2 class="center-underline" style="margin-left:90px;">Send Message</h2><br>
+
+  <div class="star-rating" style="margin-left:100px;">
+    <input type="radio" id="star5" name="rating" value="5" />
+    <label for="star5" title="5 stars">★</label>
+    <input type="radio" id="star4" name="rating" value="4" />
+    <label for="star4" title="4 stars">★</label>
+    <input type="radio" id="star3" name="rating" value="3" />
+    <label for="star3" title="3 stars">★</label>
+    <input type="radio" id="star2" name="rating" value="2" />
+    <label for="star2" title="2 stars">★</label>
+    <input type="radio" id="star1" name="rating" value="1" />
+    <label for="star1" title="1 star">★</label>
+  </div>
+  <br>
+
+  <div class="form-group inline-group">
+    <label for="userId" style="color:black;">ID</label>
+    <input type="text" id="userId" name="id" placeholder="Enter your ID" required>
+  </div>
+
+  <div class="form-group inline-group">
+    <label for="username">User Name</label>
+    <input type="text" id="username" name="name" placeholder="Enter your name" required>
+  </div>
+
+  <div class="form-group inline-group">
+    <label for="email">Email</label>
+    <input type="email" id="email" name="em" placeholder="Enter your email" required>
+  </div>
+
+  <div class="form-group inline-group">
+    <label for="phone">Phone Number</label>
+    <input type="tel" id="phone" name="mobi" placeholder="Enter your phone number" pattern="[0-9]{10}" required>
+  </div>
+
+  <div class="form-group inline-group">
+    <label for="message">Message</label>
+    <textarea name="mes" placeholder="Add Your Review..." required></textarea>
+  </div>
+
+  <div class="button-container">
+    <button type="submit" class="btn">Submit</button>
+  </div>
+</form><br><br>
+
+<script>
+  function handleSubmit() {
+    alert("Review submitted successfully!");
+    return true;
+  }
+</script>
+
+{% include 'includes/footer.html' %}
+{% endblock %}

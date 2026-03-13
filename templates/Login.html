@@ -1,0 +1,53 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate" />
+<meta http-equiv="Pragma" content="no-cache" />
+<meta http-equiv="Expires" content="0" />
+
+  <title>Car Login</title>
+  <link rel="stylesheet" href="{% static 'Css/login.css' %}">
+</head>
+<body>
+  <img class="background-image" src="{% static 'Images/photo/i2.jpg' %}">
+  <main class="container" role="main">
+    <section class="welcome-section">
+      <h1>Get Your <span class="highlight">Dream Hyundai Car</span>!</h1>
+      <p>Rev up your journey with seamless access – welcome back to the driver's seat. Login to get access!</p>
+    </section>
+
+     <form method="POST" action="{% url 'logincheck' %}" class="login-form">
+    {% csrf_token %}
+      <h2>Login Account</h2>
+
+      <div class="form-group">
+        <label for="name">Name</label>
+        <input type="text" id="name" placeholder="Enter your name"  name="name"required />
+        <hr/>
+      </div>
+
+      <div class="form-group">
+        <label for="password">Password</label>
+        <input type="password" id="password" name="password" placeholder="Enter your password" pattern="(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{8,}" title="please enter  uppercase latter , lowercase latter and number  " minlength="6" maxlength="8" required />
+        <hr />
+      </div>
+
+      <a href="{% url 'registration' %}" class="pass">Change Password</a><br><br>
+      <a href="#"><input type="submit" value="Login" class="submit-btn"></a>
+      <a href="{% url 'registration' %}" class="submit-btn" style="text-decoration: none;margin-left:20px;  padding: 15px;">Registation</a>	 
+    </form>
+  </main>
+<!-- Add this in your Login.html template (usually near the top of the body) -->
+ {% if error %}
+    <script>
+      alert("{{ error }}.Invalid name or password Please register if you don't have an account.");
+      // Optional: Redirect to registration after alert
+       window.location.href = "{% url 'login' %}";
+    </script>
+  {% endif %}
+
+</body>
+</html>

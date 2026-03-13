@@ -1,0 +1,62 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate" />
+  <meta http-equiv="Pragma" content="no-cache" />
+  <meta http-equiv="Expires" content="0" />
+
+  <title>Payment Popup</title>
+  <link rel="stylesheet" href="{% static 'Css/payment.css' %}">
+</head>
+<body>
+  <!-- Popup Overlay -->
+  <div class="overlay">
+    <div class="popup">
+      <span class="close-btn">&times;</span>
+      <div class="logo">
+        <img src="{% static 'images/photo/payple.png' %}" alt="PayPal">
+        <h2>PayPal Payment Pro</h2>
+      </div>
+
+      <form action="{% url 'payment' %}" method="post">
+        {% csrf_token %}
+
+        <div class="flex-row form-group">
+          <input type="text" name="first_name" placeholder="First Name" value="{{ reg.cname }}" required>
+          <input type="text" name="last_name" placeholder="Last Name" required>
+        </div>
+
+        <div class="form-group">
+          <input type="text" name="card_number" placeholder="Card Number" style="width:380px;" maxlength="16" pattern="\d{16}" title="Enter 16-digit card number" required>
+        </div>
+
+        <div class="flex-row form-group">
+          <input type="text" name="expiry" placeholder="MM/YYYY" pattern="(0[1-9]|1[0-2])\/\d{4}" title="Enter in MM/YYYY format" required>
+          <input type="text" name="cvc" placeholder="CVC" maxlength="3" pattern="\d{3}" title="Enter 3-digit CVC" required>
+        </div>
+
+        <div class="form-group">
+          <input type="text" name="country" value="{{ reg.ccon }}" required>
+        </div>
+
+        <div class="form-group">
+          <input type="text" name="state" value="{{ reg.cstate }}" required>
+        </div>
+
+        <div class="form-group">
+          <input type="text" name="street_address" placeholder="Street Address" style="width:380px;" required>
+        </div>
+
+        <div class="flex-row form-group">
+          <input type="text" name="city" placeholder="City" value="{{ reg.ccity }}" required>
+          <input type="text" name="pincode" placeholder="Pincode" required>
+        </div>
+
+        <button type="submit" class="btn">COMPLETE PAYMENT</button>
+      </form>
+    </div>
+  </div>
+</body>
+</html>

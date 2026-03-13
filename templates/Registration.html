@@ -1,0 +1,89 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate" />
+<meta http-equiv="Pragma" content="no-cache" />
+<meta http-equiv="Expires" content="0" />
+
+  <title>Registration Form</title>
+  <link rel="stylesheet" href="{% static 'css/registration.css' %}">
+</head>
+<body>
+  
+  <div class="registration-container" role="main" aria-label="Registration Form">
+    <h2>Registration Form</h2>
+    <form action="{% url 'regidata' %}" method="post">
+      {% csrf_token %}
+      <div class="name-fields">
+         <div>
+          <label for="last-name">User id</label>
+          <input id="last-name" name="id" type="text" placeholder="Enter User id" aria-describedby="last-name-desc" />
+        </div>
+        <div>
+          <label for="first-name"> User name</label>
+          <input id="first-name" name="name" type="text" placeholder="Enter User name" aria-describedby="first-name-desc" />
+        </div>
+      </div>
+
+      <div>
+        <label for="password">Password</label>
+        <input type="password" id="password" name="password" placeholder="Enter your password" pattern="(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{8,}" title="please enter  uppercase latter , lowercase latter and number  " minlength="6" maxlength="8" required style="height: 35px; width: 400px; border-radius: 5px 5px; border: none;" />
+      </div>
+
+      <div>
+        <label for="email">Email</label>
+        <input id="email" name="em" type="email" placeholder="Enter your email" />
+      </div>
+
+      <div class="phone-fields">
+        <div class="phone-input">
+          <label for="area-code">Phone</label>
+            <select name="mobi1" style="width: 80px;">
+              <option>+91</option>
+              <option>+81</option>
+              <option>+71</option>
+            </select>
+        </div>
+        <div class="phone-input">
+          <label for="phone-number" style="visibility:hidden;">Phone Number</label>
+          <input id="phone-number" name="mobi" type="text" maxlength="10" placeholder="Phone Number" aria-describedby="phone-number-desc"  style="margin-left: -120px; height: 35px; width: 300px; padding-top: 10px;"/>    
+        </div>
+      </div>
+
+      <div>
+        <label for="Country">Country</label>
+        <input id="city" name="cont" type="text" placeholder="Enter Country" aria-describedby="country-desc" />
+      </div>
+
+      <div>
+        <label for="state">State</label>
+        <input id="state" name="state" type="text" placeholder="Enter state" aria-describedby="state-desc" />
+        </select>
+      </div>  
+
+      <div>
+        <label for="city">City</label>
+        <input id="city" name="city" type="text" placeholder="Enter city" aria-describedby="city-desc" />
+      </div>
+        
+
+      <button type="submit" aria-label="Register form">Register</button>
+    </form>
+  </div>
+   {% if status == 'success' %}
+  <script>
+    alert("{{ message }}");
+    window.location.href = "{% url 'login' %}";
+  </script>
+{% elif status == 'error' %}
+  <script>
+    alert("{{ message }}");
+  </script>
+{% endif %}
+
+</body>
+</html>
+

@@ -1,0 +1,197 @@
+{% extends "Dashboard.html" %}
+{% load static %}
+
+{% block title %}{{ report_type|capfirst }} Report{% endblock %}
+
+{% block content %}
+  <link rel="stylesheet" href="{% static 'Css/report.css' %}">
+  <style>
+    /* General reset */
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+      font-family: "Segoe UI", Tahoma, sans-serif;
+    }
+
+    body {
+      background: #f5f6fa;
+      color: #333;
+      font-size: 15px;
+      line-height: 1.5;
+    }
+
+    /* Container */
+    .container {
+      max-width: 1100px;
+      margin: 40px auto;
+      padding: 30px;
+      background: #ffffff;
+      border-radius: 12px;
+      border-top: 6px solid #a1631cff; /* matches dashboard hover */
+      box-shadow: 0 6px 18px rgba(0, 0, 0, 0.08);
+      min-height: 80vh; /* give height */
+    }
+
+    /* Title */
+    .container h2 {
+      text-align: center;
+      margin-bottom: 25px;
+      color: #2c3e50;
+      font-size: 28px;
+      font-weight: 600;
+    }
+
+    /* Navigation buttons */
+    .nav-buttons {
+      display: flex;
+      justify-content: center;
+      margin-bottom: 25px;
+      gap: 15px;
+    }
+
+    .nav-buttons .btn {
+      display: inline-block;
+      padding: 10px 20px;
+      background: #dbbc34ff;
+      color: white;
+      border-radius: 8px;
+      text-decoration: none;
+      font-size: 15px;
+      font-weight: 500;
+      transition: all 0.3s ease;
+    }
+
+    .nav-buttons .btn:hover {
+      background: #a18e1fff;
+      transform: translateY(-2px);
+    }
+
+    .nav-buttons .btn.active {
+      background: #b89c1eff;
+    }
+
+    /* Table */
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      margin-bottom: 30px;
+      overflow: hidden;
+      border-radius: 8px;
+    }
+
+    table th,
+    table td {
+      border: 1px solid #ddd;
+      padding: 14px 18px;
+      text-align: center;
+      font-size: 14px;
+    }
+
+    table th {
+      background: #805e15ff;
+      color: white;
+      font-weight: 600;
+    }
+
+    table tr:nth-child(even) {
+      background: #f8f9fa;
+    }
+
+    table tr:hover {
+      background: #ecf6fd;
+    }
+
+    .no-data {
+      text-align: center;
+      padding: 15px;
+      color: #888;
+    }
+
+    /* Chart */
+    .chart {
+      text-align: center;
+      margin-bottom: 25px;
+    }
+
+    .chart img {
+      max-width: 95%;
+      height: auto;
+      border-radius: 8px;
+      box-shadow: 0 3px 10px rgba(0, 0, 0, 0.12);
+      padding: 10px;
+      background: #fff;
+      border: 1px solid #e6e6e6;
+    }
+
+    /* Download button */
+    .download-btn {
+      text-align: center;
+      margin-top: 20px;
+    }
+
+    .download-btn .btn {
+      display: inline-block;
+      padding: 12px 24px;
+      background: #64500eff;
+      color: white;
+      border-radius: 8px;
+      text-decoration: none;
+      font-weight: 500;
+      transition: all 0.3s ease;
+    }
+
+    .download-btn .btn:hover {
+      background: #b98e2fff;
+      transform: translateY(-2px);
+    }
+  </style>
+
+  <div class="container">
+    <!-- Page Title -->
+    <h2>{{ report_type|capfirst }} Report</h2>
+
+    <!-- Navigation Buttons -->
+    <div class="nav-buttons">
+      <a href="{% url 'report' 'stock' %}" class="btn {% if report_type == 'stock' %}active{% endif %}">Stock</a>
+      <a href="{% url 'report' 'sales' %}" class="btn {% if report_type == 'sales' %}active{% endif %}">Sales</a>
+      <a href="{% url 'report' 'orders' %}" class="btn {% if report_type == 'orders' %}active{% endif %}">Orders</a>
+    </div>
+
+    <!-- Table -->
+    {% if headers and data %}
+      <table>
+        <thead>
+          <tr>
+            {% for head in headers %}
+              <th>{{ head }}</th>
+            {% endfor %}
+          </tr>
+        </thead>
+        <tbody>
+          {% for row in data %}
+            <tr>
+              {% for col in row %}
+                <td>{{ col }}</td>
+              {% endfor %}
+            </tr>
+          {% endfor %}
+        </tbody>
+      </table>
+    {% else %}
+      
+    {% endif %}
+
+    <!-- Chart -->
+    {% if chart %}
+      <div class="chart">
+        <img src="data:image/png;base64,{{ chart }}" alt="{{ report_type|capfirst }} Chart">
+      </div>
+    {% endif %}
+
+    <!-- Download PDF -->
+    <div class="download-btn">
+      <a href="?download=pdf" class="btn">Download PDF</a>
+    </div>
+  </div>
+{% endblock %}

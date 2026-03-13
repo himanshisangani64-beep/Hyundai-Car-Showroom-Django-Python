@@ -1,0 +1,144 @@
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body, html {
+  height: 100%;
+  margin: 0;
+  font-family: Arial, sans-serif;
+  background: url("../Images/photo/b.jpg") no-repeat center center fixed;
+  background-size: cover;
+  display: flex;
+  justify-content: flex-end;
+  align-items: center;
+  color: white;
+  padding-right: 40px;
+}
+
+
+
+.registration-container {
+  background: rgba(0, 0, 0, 0.7);
+  border-radius: 15px;
+  padding: 20px 40px;
+  width: 100%;
+  max-width: 480px;
+  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.6);
+  margin-right: 40px; 
+}
+
+.registration-container h2 {
+  text-align: center;
+  margin-bottom: 25px;
+  font-weight: 700;
+  font-size: 1.8rem;
+}
+
+form {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+label {
+  font-weight: 600;
+  margin-bottom: 4px;
+  display: inline-block;
+}
+
+.name-fields {
+  display: flex;
+  gap: 15px;
+}
+
+.name-fields input {
+  flex: 1;
+}
+
+input[type="text"],
+input[type="email"],
+input[type="password"],
+input[type="tel"],
+select {
+  width: 100%;
+  padding: 10px 12px;
+  border-radius: 6px;
+  border: none;
+  font-size: 1rem;
+  outline: none;
+  transition: background-color 0.3s ease, box-shadow 0.3s ease;
+}
+
+input::placeholder {
+  font-weight: 300;
+  font-size: 0.85rem;
+  color: #bbb;
+}
+
+input:focus, select:focus {
+  background-color: #eef5f6;
+  color: #222;
+  box-shadow: 0 0 0 2px #3da59a;
+}
+
+.phone-fields {
+  display: flex;
+  gap: 15px;
+  align-items: flex-start;
+}
+
+.phone-input {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  position: relative;
+}
+
+.phone-input small {
+  position: absolute;
+  bottom: 6px;
+  left: 12px;
+  font-size: 0.75rem;
+  color: #bbcfd1cc;
+  user-select: none;
+}
+
+button[type="submit"] {
+  background-color: #ef7c12;
+  color: white;
+  font-size: 1rem;
+  font-weight: 600;
+  padding: 12px 0;
+  border: none;
+  border-radius: 8px;
+  cursor: pointer;
+  user-select: none;
+  margin-top: 18px;
+  transition: background-color 0.3s ease;
+}
+
+button[type="submit"]:hover,
+button[type="submit"]:focus {
+  background-color: #c7733a;
+  outline: none;
+}
+
+@media (max-width: 500px) {
+  .name-fields,
+  .phone-fields {
+    flex-direction: column;
+  }
+
+  .phone-input input {
+    padding-bottom: 8px;
+  }
+
+  .phone-input small {
+    position: static;
+    margin-top: 2px;
+    color: #bbb;
+  }
+}

@@ -1,0 +1,36 @@
+:root{
+      --bg:#f6f8fb; --card:#ffffff; --muted:#6b7280; --accent:#2563eb;
+      --radius:12px; --gap:16px; --maxw:900px;
+    }
+    
+
+    header{display:flex;align-items:center;justify-content:space-between;margin-bottom:18px}
+    h1{font-size:20px;margin:0}
+    p.lead{margin:0;color:var(--muted)}
+
+    .card{background:var(--card);border-radius:var(--radius);padding:20px;box-shadow:0 6px 18px rgba(15,23,42,0.06)}
+    form.grid{display:grid;grid-template-columns:1fr 360px;gap:20px}
+
+    .field{margin-bottom:14px}
+    label{display:block;font-weight:600;margin-bottom:6px;font-size:13px}
+    input[type=text], input[type=number], textarea, select{width:100%;padding:10px 12px;border-radius:10px;border:1px solid #aaacafff;background:#fff}
+    textarea{min-height:120px;resize:vertical}
+
+    .file-row{display:grid;grid-template-columns:1fr 80px;gap:10px}
+    .file-row input[type=file]{padding:8px}
+
+    .meta{background:#fbfdff;border:1px solid #eef5ff;padding:12px;border-radius:10px}
+
+    .right-col{display:flex;flex-direction:column;gap:12px}
+
+    .actions{display:flex;gap:10px;align-items:center;margin-top:12px}
+    button{background:var(--accent);color:#fff;padding:10px 14px;border-radius:10px;border:0;font-weight:600;cursor:pointer}
+    button.secondary{background:#fff;color:var(--accent);border:1px solid #cfe0ff}
+    .small{font-size:13px;color:var(--muted)}
+
+    .inline{display:flex;gap:10px;align-items:center}
+
+    @media (max-width:880px){
+      form.grid{grid-template-columns:1fr;}
+      .right-col{order:-1}
+    }

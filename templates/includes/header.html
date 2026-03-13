@@ -1,0 +1,260 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate" />
+<meta http-equiv="Pragma" content="no-cache" />
+<meta http-equiv="Expires" content="0" />
+
+  <title>Home | Hyundai Limousines</title>
+  <link rel="stylesheet" href="{% static 'css/home.css' %}" />
+
+  <style>
+      .cart {
+  position: relative;
+  display: inline-block;
+}  
+  .cart sup {
+  position: absolute;
+  top: -10px;
+  right: -8px;
+  background: red;
+  color: white;
+  border-radius: 50%;
+  padding: 2px 6px;
+  font-size: 10px;
+}
+    /* Dropdown styles */
+    .user-dropdown {
+      display: none;
+      position: absolute;
+      right: 0;
+      top: 40px;
+      background-color: white;
+      border: 1px solid #ccc;
+      padding: 10px;
+      z-index: 999;
+      box-shadow: 0 2px 6px rgba(0, 0, 0, 0.2);
+      color: black;
+    }
+
+    .user-dropdown.show {
+      display: block;
+    }
+
+    .user-icon {
+      position: relative;
+      cursor: pointer;
+    }
+
+    /* Product Dropdown */
+    .nav-item {
+      position: relative;
+    }
+
+    .dropdown {
+      position: absolute;
+      top: 100%;
+      left: 0;
+      background-color: white;
+      padding: 10px 0;
+      border-radius: 4px;
+      display: none;
+      flex-direction: column;
+      box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+      min-width: 180px;
+      z-index: 1000;
+    }
+
+    .dropdown a {
+      padding: 8px 20px;
+      text-decoration: none;
+      color: #333;
+      transition: background 0.2s;
+    }
+
+    .dropdown a:hover {
+      background-color: #f0f0f0;
+    }
+
+    .nav-item:hover .dropdown {
+      display: flex;
+      animation: slideDown 0.3s ease-out;
+    }
+
+    @keyframes slideDown {
+      from {
+        opacity: 0;
+        transform: translateY(-10px);
+      }
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+     .cart {
+    display: flex;
+    align-items: center;
+  }
+  .cart-link {
+    background: none;
+    border: none;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    color: inherit;
+  }
+  .cart-link:hover svg {
+    transform: scale(1.1);
+    transition: 0.2s ease;
+  }
+  sup {
+    margin-left: 4px;
+    font-size: 0.8rem;
+    color: #d3b568;
+  }
+  </style>
+</head>
+<body>
+<header>
+  <div class="logo" aria-label="Hyundai logo">
+    <div class="logo-icon" aria-hidden="true"></div>
+   <div class="logo-text">
+  <a href="{% url 'home' %}">Hyundai</a>
+</div>
+
+  </div>
+
+  <nav aria-label="Primary navigation">
+    <a href="{% url 'home' %}" class="active" aria-current="page">Home</a>
+     <!-- About Us -->
+    {% if request.session.cname %}
+      <a href="{% url 'aboutus' %}">About Us</a>
+    {% else %}
+      <button type="button" class="cart-link" onclick="redirectToLoginWithAlert('{{ request.path }}')">
+        About Us
+      </button>
+    {% endif %}
+
+
+    <!-- Products dropdown -->
+    <div class="nav-item">
+       {% if request.session.cname %}
+        <a href="{% url 'product'%}">Products</a>
+       {% else %}
+       <button type="button" class="cart-link" onclick="redirectToLoginWithAlert('{{ request.path }}')" style="color:white;font-size:15px;">
+         Products  
+       </button>
+       {% endif %}
+      <div class="dropdown" role="menu" aria-label="Products submenu">
+      <a href="{% url 'product' %}">All Cars</a> 
+       {% for Category in links %}
+         <a href="{{Category.get_url}}">{{Category.category_name}}</a>
+       {% endfor %}
+      </div>
+    </div>
+    {% if request.session.cname %}
+    <a href="{% url 'rev' %}">Reviews</a> <!-- ✅ This works -->
+    {% else %}
+       <button type="button" class="cart-link" onclick="redirectToLoginWithAlert('{{ request.path }}')" style="color:white;font-size:15px;">
+        Reviews 
+       </button>
+    {% endif %}  
+
+
+  </nav>
+
+  <div class="header-right">
+    <div class="call-info">
+      <div class="label">Call to book an order:</div>
+      <div class="phone">8‑800‑10‑500</div>
+    </div>
+
+    <div class="icon-group" role="group" aria-label="User, cart, search">
+      <!-- User Icon -->
+      <div class="user-icon" onclick="toggleUserDropdown()" tabindex="0" aria-label="User menu" aria-expanded="false">
+        <svg aria-hidden="true" viewBox="0 0 24 24" width="30" height="30" stroke-linecap="round" stroke-linejoin="round">
+          <circle cx="12" cy="8" r="4" stroke="#d3b568" fill="none" stroke-width="2" />
+          <path d="M6 20c0-4 12-4 12 0" stroke="#d3b568" fill="none" stroke-width="2" />
+        </svg>
+
+        <div id="userDropdown" class="user-dropdown">
+            {% if request.session.cname %}
+            Hello, <strong>{{ request.session.cname }}</strong><br>
+              <!--<a href="{% url 'login' %}">Login</a><br>
+              <a href="{% url 'registration' %}">Register</a><br>-->
+              <a href="{% url 'logout1' %}">Logout</a><br>
+              
+            {% else %}
+               Hello, <strong>{{ request.session.cname }}</strong><br>
+              <a href="{% url 'login' %}">Login</a><br>
+              <a href="{% url 'registration' %}">Register</a><br>
+            {% endif %}
+          </div>
+        </div>
+
+           <!-- Cart Icon -->
+    <div class="cart">
+  {% if request.session.cname %}
+    <!-- User is logged in -->
+    <a href="{% url 'cart' %}" class="cart-link">
+      <svg aria-hidden="true" viewBox="0 0 24 24" width="30" height="30" stroke-linecap="round" stroke-linejoin="round">
+        <circle cx="9" cy="21" r="1" stroke="#d3b568" fill="none" stroke-width="2" />
+        <circle cx="18" cy="21" r="1" stroke="#d3b568" fill="none" stroke-width="2" />
+        <path d="M1 1h4l2.68 13.39a1 1 0 0 0 1 .61h10a1 1 0 0 0 1-.75l2.38-9.33H6" stroke="#d3b568" fill="none" stroke-width="2" />
+      </svg>
+      <sup>{{ cart_count }}</sup>
+    </a>
+  {% else %}
+    <!-- User not logged in -->
+    <button type="button" class="cart-link" onclick="redirectToLoginWithAlert('{{ request.path }}')">
+      <svg aria-hidden="true" viewBox="0 0 24 24" width="30" height="30" stroke-linecap="round" stroke-linejoin="round">
+        <circle cx="9" cy="21" r="1" stroke="#d3b568" fill="none" stroke-width="2" />
+        <circle cx="18" cy="21" r="1" stroke="#d3b568" fill="none" stroke-width="2" />
+        <path d="M1 1h4l2.68 13.39a1 1 0 0 0 1 .61h10a1 1 0 0 0 1-.75l2.38-9.33H6" stroke="#d3b568" fill="none" stroke-width="2" />
+      </svg>
+      <sup>{{ cart_count }}</sup>
+    </button>
+  {% endif %}
+</div>
+
+<script>
+  function redirectToLoginWithAlert(nextUrl) {
+    alert("⚠️ Please login first to access your cart.");
+    const encodedNext = encodeURIComponent(nextUrl || '/');
+    window.location.href = "{% url 'login' %}?next=" + encodedNext;
+  }
+</script>
+
+    </div>
+
+    {% if show_buy_button %}
+      <a href="#" class="buy-now-btn">Buy Now</a>
+    {% endif %}
+  </div>
+</header>
+
+{% block content %}
+<!-- Page content goes here -->
+{% endblock %}
+
+<!-- Dropdown Script -->
+<script>
+  function toggleUserDropdown() {
+    const dropdown = document.getElementById('userDropdown');
+    const userIcon = document.querySelector('.user-icon');
+    const isShown = dropdown.classList.toggle('show');
+    userIcon.setAttribute('aria-expanded', isShown);
+  }
+
+  document.addEventListener('click', function (event) {
+    const userIcon = document.querySelector('.user-icon');
+    const dropdown = document.getElementById('userDropdown');
+    if (!userIcon.contains(event.target)) {
+      dropdown.classList.remove('show');
+      userIcon.setAttribute('aria-expanded', false);
+    }
+  });
+</script>
+</body>
+</html>

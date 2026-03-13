@@ -1,0 +1,210 @@
+{% extends 'includes/header.html' %}
+{% load static %}
+{% block content %}
+  <link rel="stylesheet" href="{% static 'css/product_info.css' %}">
+  <style>
+    /* Add responsive fallback if needed */
+    .main-car-image {
+      width: 100%;
+      height: auto;
+      object-fit: cover;
+    }
+    .slider-container {
+      overflow: hidden;
+      position: relative;
+      width: 100%;
+    }
+    .slider {
+      display: flex;
+      transition: transform 0.5s ease-in-out;
+      width: 300%;
+    }
+    .slide {
+      width: 80%%;
+      flex-shrink: 0;
+    }
+    .slide img {
+      width: 40%;
+      height: 250px;
+      object-fit: cover;
+    }
+    .slider-buttons {
+      position: absolute;
+      top: 50%;
+      width: 100%;
+      display: flex;
+      justify-content: space-between;
+      transform: translateY(-50%);
+    }
+    .slider-buttons button {
+      background-color: rgba(0,0,0,0.5);
+      color: white;
+      border: none;
+      padding: 10px 15px;
+      cursor: pointer;
+    }
+    .header, .footer {
+      text-align: center;
+      padding: 20px;
+      background-color: #f4f4f4;
+    }
+    .container {
+      display: flex;
+      flex-wrap: wrap;
+      padding: 20px;
+    }
+    .left-side, .right-side {
+      flex: 1;
+      min-width: 300px;
+      padding: 15px;
+    }
+    .car-title {
+      font-size: 24px;
+      font-weight: bold;
+      margin-bottom: 10px;
+    }
+    .car-details p {
+      margin: 6px 0;
+    }
+    .buttons {
+      margin-top: 15px;
+    }
+    .buttons button {
+      padding: 10px 20px;
+      margin-right: 10px;
+      cursor: pointer;
+    }
+  </style>
+
+
+  <!-- Header -->
+  
+
+  <!-- Main Content -->
+  <div class="container">
+
+    <!-- Left Side -->
+    <div class="left-side">
+      {% if product.image %}
+        <img src="{{ product.image.url }}" class="main-car-image" alt="{{ product.product_name }}">
+      {% else %}
+        <p>No main image available.</p>
+      {% endif %}
+    </div>
+
+    <!-- Right Side -->
+    <div class="right-side">
+      <!-- Car Info -->
+      <div class="car-title">2025 Hyundai {{ product.product_name }}</div>
+      <div class="car-details">
+        <p><strong>Company Name:</strong> Hyundai</p>
+        <p><strong>Price:</strong> ₹{{ product.price }}</p>
+        <p><strong>GST:</strong> 8% (included)</p>
+        <p><strong>Transmission:</strong> 5-Speed Manual</p>
+        <p><strong>Fuel Type:</strong> Petrol & CNG</p>
+        <p><strong>Stock:</strong> In stock</p>
+        <p><strong>Description:</strong> {{ product.description|default:"No description provided." }}</p>
+      </div>
+
+      <!-- Buttons -->
+<div class="buttons">
+  {% if request.session.cname %}
+    <!-- ✅ User is logged in -->
+    <a href="{% url 'add_cart' product.id %}">
+      <button class="add-to-cart" style="width:250px;">Add to Cart</button>
+    </a>
+  {% else %}
+    <!-- ❌ User is not logged in -->
+    <button class="add-to-cart" onclick="redirectToLoginWithAlert('{{ request.path }}');" style="width:250px;">
+      Add to Cart
+    </button>
+  {% endif %}
+  
+  {% if request.session.cname %}
+    <!-- ✅ User is logged in -->
+    <a href="{% url 'add_cart' product.id %}">
+      <button class="buy-now" style="width:250px;">Buy Now</button>
+    </a>
+  {% else %}
+    <!-- ❌ User is not logged in -->
+    <button class="buy-now" onclick="redirectToLoginWithAlert('{{ request.path }}');" style="width:250px;">
+      Buy Now
+    </button>
+  {% endif %}
+
+  <!--<button class="buy-now">Buy Now</button>-->
+</div>
+
+<script>
+  function redirectToLoginWithAlert(nextUrl) {
+    alert("Please login first to add items to your cart.");
+    const encodedNext = encodeURIComponent(nextUrl);
+    window.location.href = "{% url 'login1' %}?next=" + encodedNext;
+  }
+</script>
+
+
+
+      <!-- Image Slider -->
+      <div class="slider-container">
+        <div class="slider" id="slider">
+          {% if product.car_part1 %}
+          <div class="slide">
+            <img src="{{ product.car_part1.url }}" alt="Part 1">
+          </div>
+          {% endif %}
+          {% if product.car_part2 %}
+          <div class="slide">
+            <img src="{{ product.car_part2.url }}" alt="Part 2">
+          </div>
+          {% endif %}
+          {% if product.car_part3 %}
+          <div class="slide">
+            <img src="{{ product.car_part3.url }}" alt="Part 3">
+          </div>
+          {% endif %}
+        </div>
+
+        {% if product.car_part1 or product.car_part2 or product.car_part3 %}
+        <div class="slider-buttons">
+          <button onclick="prevSlide()">&#10094;</button>
+          <button onclick="nextSlide()">&#10095;</button>
+        </div>
+        {% endif %}
+      </div>
+    </div>
+  </div>
+
+  <!-- Footer -->
+  
+
+  <!-- JavaScript for Slider -->
+  <script>
+    const slider = document.getElementById('slider');
+    const totalSlides = slider?.children.length || 0;
+    let currentIndex = 0;
+
+    function updateSliderPosition() {
+      if (slider) {
+        slider.style.transform = `translateX(-${currentIndex * 100}%)`;
+      }
+    }
+
+    function nextSlide() {
+      if (totalSlides > 0) {
+        currentIndex = (currentIndex + 1) % totalSlides;
+        updateSliderPosition();
+      }
+    }
+
+    function prevSlide() {
+      if (totalSlides > 0) {
+        currentIndex = (currentIndex - 1 + totalSlides) % totalSlides;
+        updateSliderPosition();
+      }
+    }
+
+  </script>
+
+{% include 'includes/footer.html' %}
+{% endblock %}

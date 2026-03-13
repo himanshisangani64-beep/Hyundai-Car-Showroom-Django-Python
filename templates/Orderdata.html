@@ -1,0 +1,134 @@
+{% extends "Dashboard.html" %}
+{% load static %}
+
+{% block title %}Order Information{% endblock %}
+
+{% block content %}
+<!-- load custom styles for this page -->
+<link rel="stylesheet" href="{% static 'Css/orderdata.css' %}">
+
+<div class="orders-wrap">
+  <h2 class="page-title">All Orders</h2>
+
+  <!-- ✅ Show Django messages -->
+  {% if messages %}
+    <div class="messages">
+      {% for message in messages %}
+        <div class="alert 
+            {% if message.tags == 'success' %}alert-success
+            {% elif message.tags == 'error' %}alert-danger
+            {% elif message.tags == 'warning' %}alert-warning
+            {% else %}alert-info{% endif %}">
+            <div class="alert alert-{{ message.tags }}">
+          {{ message }}
+        </div>
+      {% endfor %}
+    </div>
+  {% endif %}
+
+  {% for order in orders %}
+    <article class="order-card">
+      <header class="order-header">
+        <div class="order-left">
+          <h3 class="order-title">Order #{{ order.id }} — {{ order.customer_name }}</h3>
+          <div class="order-meta">
+            <span class="meta-item">Date: {{ order.created_at|date:"M d, Y H:i" }}</span>
+            <span class="meta-item">Total: <strong>₹{{ order.total_price }}</strong></span>
+          </div>
+        </div>
+
+        <div class="order-status">
+          <span class="status-badge
+            {% if order.status == 'Pending' %}status-pending
+            {% elif order.status == 'Processing' %}status-processing
+            {% elif order.status == 'Completed' %}status-completed
+            {% else %}status-pending{% endif %}">
+            {{ order.status }}
+          </span>
+        </div>
+      </header>
+
+      <div class="order-body">
+        <!-- Products Table -->
+        <div class="items-wrap">
+          <table class="items-table">
+            <thead>
+              <tr>
+                <th>Product</th>
+                <th class="center">Qty</th>
+                <th class="right">Price</th>
+                <th class="right">Subtotal</th>
+              </tr>
+            </thead>
+            <tbody>
+              {% for item in order.items.all %}
+                <tr>
+                  <td class="product-cell">
+                    {% if item.product.image %}
+                      <img src="{{ item.product.image.url }}" alt="{{ item.product.product_name }}" class="thumb" style="width:120px;">
+                    {% endif %}
+                    <div class="prod-info">
+                      <div class="prod-name">{{ item.product.product_name }}</div>
+                      {% if item.product.category %}
+                        <div class="prod-cat">{{ item.product.category }}</div>
+                      {% endif %}
+                    </div>
+                  </td>
+                  <td class="center">{{ item.quantity }}</td>
+                  <td class="right">₹{{ item.price }}</td>
+                  <td class="right">₹{{ item.price }}</td>
+                </tr>
+              {% empty %}
+                <tr>
+                  <td colspan="4" class="center muted">No items for this order</td>
+                </tr>
+              {% endfor %}
+            </tbody>
+          </table>
+        </div>
+
+        <!-- Action Buttons -->
+        <div class="order-actions">
+          {% if order.status != "Completed" %}
+            {% if order.status == "Pending" %}
+              <a href="{% url 'update_order_status' order.id 'Processing' %}"
+                 class="btn btn-process"
+                 onclick="return confirm('Mark order #{{ order.id }} as Processing?');">
+                 Process
+              </a>
+            {% endif %}
+
+            {% if order.status == "Pending" or order.status == "Processing" %}
+              <a href="{% url 'update_order_status' order.id 'Completed' %}"
+                 class="btn btn-complete"
+                 onclick="return confirm('Mark order #{{ order.id }} as Completed?');">
+                 Completed
+              </a>
+            {% endif %}
+
+            <a href="{% url 'delete_order' order.id %}"
+               class="btn btn-cancel" 
+               onclick="return confirm('Are you sure you want to cancel and delete order #{{ order.id }}? This will remove all its products.');">
+               Cancel
+            </a>
+          {% endif %}
+        </div>
+
+      </div>
+    </article>
+  {% empty %}
+    <div class="no-orders">No orders found.</div>
+  {% endfor %}
+</div>
+
+<!-- ✅ Message Box Styles -->
+<style>
+.messages { margin-bottom: 20px; }
+.alert { padding: 10px 15px; border-radius: 5px; margin-bottom: 10px; font-weight: 500; }
+.alert-success { background: #d1fae5; color: #065f46; border: 1px solid #10b981; }
+.alert-danger { background: #fee2e2; color: #991b1b; border: 1px solid #ef4444; }
+.alert-warning { background: #fef3c7; color: #92400e; border: 1px solid #f59e0b; }
+.alert-info { background: #dbeafe; color: #1e40af; border: 1px solid #3b82f6; }
+</style>
+
+{% endblock %}

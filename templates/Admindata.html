@@ -1,0 +1,55 @@
+{% extends "Dashboard.html" %}
+{% load static %}   {# 🔥 This is required for using {% static %} #}
+
+{% block title %}Hyundai Admin Dashboard{% endblock %}
+
+{% block content %}
+<link rel="stylesheet" href="{% static 'Css/admindata.css' %}">
+
+<div class="dashboard-wrap">
+  <!-- Welcome Section -->
+  <header class="dashboard-header">
+    <h2 class="welcome">🚗 Hyundai Showroom Admin</h2>
+    <p class="sub">Hello <strong>{{ request.session.cname }}</strong>, welcome back to your dashboard.</p>
+  </header>
+
+  <!-- Overview Cards -->
+  <section class="stats-grid">
+    <div class="stat-card">
+      <h3>Total Cars</h3>
+      <p class="stat-number">128</p>
+      <span class="muted">Available in stock</span>
+    </div>
+    <div class="stat-card">
+      <h3>Orders</h3>
+      <p class="stat-number">52</p>
+      <span class="muted">Pending & completed</span>
+    </div>
+    <div class="stat-card">
+      <h3>Customers</h3>
+      <p class="stat-number">240</p>
+      <span class="muted">Registered clients</span>
+    </div>
+    <div class="stat-card">
+      <h3>Sales</h3>
+      <p class="stat-number">₹18.5L</p>
+      <span class="muted">This month</span>
+    </div>
+  </section>
+
+  <!-- Website Overview -->
+  <section class="overview">
+    <h3 class="section-title">📊 Website Overview</h3>
+    <p>
+      The Hyundai Car Showroom dashboard helps you manage <strong>cars, customers, orders, and sales</strong>.
+      You can easily monitor pending orders, track monthly sales growth, and keep the inventory updated.  
+    </p>
+    <ul class="overview-list">
+      <li>✔ Manage car listings and categories</li>
+      <li>✔ Track customer details and activities</li>
+      <li>✔ Process and complete orders quickly</li>
+      <li>✔ Monitor sales reports and performance</li>
+    </ul>
+  </section>
+</div>
+{% endblock %}

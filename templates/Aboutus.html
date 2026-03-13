@@ -1,0 +1,62 @@
+{% extends 'includes/header.html' %}
+{% load static %}
+{% block content %}
+<link rel="stylesheet" href="{% static 'css/aboutus.css' %}">
+<section class="about-container" role="region" aria-labelledby="about-title">
+  <div class="left">
+    <h1 id="about-title">About</h1>
+    <div class="underline" aria-hidden="true"></div>
+    <p>
+      We provide reliable and fast towing services 24/7. Our experienced team ensures your vehicle is handled with care and professionalism at all times.
+    </p>
+  </div>
+
+  <div class="right" role="contentinfo" aria-label="Emergency contact information">
+    <div class="phone-box">
+      <small>24/7 Emergency Towing</small>
+      <div class="phone-number">(800) 120-667-599</div>
+    </div>
+  </div>
+</section>
+
+<main class="container" role="main" aria-labelledby="experience-section">
+  <h1 id="experience-section">Experience</h1>
+  <div class="divider" aria-hidden="true"></div>
+
+  <div class="columns">
+    <article class="column" aria-labelledby="experience-1-title">
+      <h3 id="experience-1-title">Shielding Your Shine, Preserving Your Ride</h3>
+      <p>
+        Lorem ipsum dolor sit amet, consectetur adipiscing elit. Maecenas posuere accumsan laoreet. Donec id sem quam. Mauris pulvinar magna nec odio iaculis tristique...
+      </p>
+    </article>
+
+    <article class="column" aria-labelledby="experience-2-title">
+      <h3 id="experience-2-title">Driven by Passion, Powered by Teamwork</h3>
+      <p>
+        Nulla ex ipsum, placerat eu neque in, accumsan porta elit. Quisque aliquam pellentesque ornare. Phasellus dapibus at eros eu ultricies...
+      </p>
+    </article>
+  </div>
+</main>
+
+<section class="services" aria-labelledby="vision-title">
+  <div class="container">
+    <h1 id="vision-title">Our Vision & Mission</h1>
+    <hr class="hr-underline" />
+
+    <h2>Driven by Passion, Powered by Teamwork</h2>
+
+    <div class="content-columns">
+      <p>
+        Cras a libero massa. Nullam in quam ac magna euismod facilisis. Aenean ultricies, felis et laoreet lobortis, lacus nisl tristique ipsum...
+      </p>
+      <p>
+        Mauris eleifend odio eu arcu volutpat, efficitur laoreet urna scelerisque. Maecenas a massa quis leo rutrum laoreet et non libero...
+      </p>
+    </div>
+  </div>
+</section>
+
+{% include 'includes/footer.html' %}
+{% endblock %}

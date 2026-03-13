@@ -1,0 +1,93 @@
+{% extends 'includes/header.html' %}
+{% load static %}
+{% block content %}
+<link rel="stylesheet" href="{% static 'Css/addtocart.css' %}">
+
+<div class="container">
+
+  <!-- LEFT: Shopping Cart Items -->
+  <section class="cart-section" aria-label="Shopping cart">
+    <div class="cart-summary" aria-live="polite">
+      <h2>Shopping Cart</h2>
+      <h3>You have {{ cart_items|length }} item{{ cart_items|length|pluralize }} in your cart</h3>
+    </div>
+
+    <div class="cart-items">
+      {% for cart_item in cart_items %}
+      <article class="cart-item" tabindex="0" aria-label="{{ cart_item.product.product_name }}">
+        <!-- Product Image -->
+        <div class="cart-item-image">
+          <img src="{{ cart_item.product.image.url }}" alt="{{ cart_item.product.product_name }}">
+        </div>
+
+        <!-- Product Name and Unit Price -->
+        <div class="cart-info">
+          <div class="name">{{ cart_item.product.product_name }}</div>
+          <div class="cart-price">&#8377; {{ cart_item.product.price|floatformat:2 }}</div>
+        </div>
+
+        <!-- Quantity and Total -->
+        <div class="cart-qty-price">
+          <div class="quantity-box">
+            <a href="{% url 'remove_cart' cart_item.product.id %}">
+              <button class="quantity-btn" aria-label="Decrease quantity">−</button>
+            </a>
+            <input type="text" class="quantity-input" value="{{ cart_item.quantity }}" readonly>
+            <a href="{% url 'add_cart' cart_item.product.id %}">
+              <button class="quantity-btn" aria-label="Increase quantity">+</button>
+            </a>
+          </div>
+
+          <!-- Total Price for this Item -->
+          <div class="cart-price">&#8377; {{ cart_item.sub_total|floatformat:2 }}</div>
+
+          <!-- Remove Button -->
+          <a href="{% url 'remove_cart_item' cart_item.product.id %}">
+            <button class="trash-remove" aria-label="Remove {{ cart_item.product.product_name }} from cart" title="Remove item">
+              <svg class="trash-icon" viewBox="0 0 24 24" aria-hidden="true" focusable="false">
+                <path d="M3 6h18M9 6v12m6-12v12M4 6l1 14h14l1-14"
+                      stroke="currentColor" stroke-width="2" fill="none"
+                      stroke-linecap="round" stroke-linejoin="round" />
+              </svg>
+            </button>
+          </a>
+        </div>
+      </article>
+      {% empty %}
+      <h3>No items in your cart.</h3>
+      {% endfor %}
+    </div>
+  </section>
+
+  <!-- RIGHT: Billing Section -->
+  <section class="payment-section" aria-label="Card details and checkout">
+    <h2>Billing Summary</h2>
+
+    <div class="totals" aria-live="polite" aria-relevant="additions removals">
+      <span><span>Final total</span><strong>&#8377; {{ total_price|floatformat:2 }}</strong></span>
+      <span><span>Tax</span><strong>&#8377; {{ tax_amount|floatformat:2 }}</strong></span>
+      <span><span>Total Price</span><strong>&#8377; {{ total|floatformat:2 }}</strong></span>
+    </div>
+
+    <fieldset class="card-type" aria-label="Select card type" role="radiogroup">
+      <button type="button" aria-pressed="true" class="selected" aria-label="Mastercard">
+        <img src="{% static 'Images/photo/caedit1.jpg' %}" alt="Mastercard" />
+      </button>
+      <button type="button" aria-pressed="false" aria-label="Visa">
+        <img src="{% static 'Images/photo/visa.png' %}" alt="Visa" />
+      </button>
+      <button type="button" aria-pressed="false" aria-label="Amex">
+        <img src="{% static 'Images/photo/master.png' %}" alt="Amex" />
+      </button>
+      <button type="button" aria-pressed="false" aria-label="PayPal">
+        <img src="{% static 'Images/photo/Payple.png' %}" alt="PayPal" />
+      </button>
+    </fieldset>
+
+    <a href="{% url 'product' %}" class="checkout-bar">Continue Shopping</a>
+    <a  href="{% url 'checkout' %}" class="checkout-bar" type="submit">Checkout Now</a>
+  </section>
+</div>
+<br><br>
+{% include 'includes/footer.html' %}
+{% endblock %}

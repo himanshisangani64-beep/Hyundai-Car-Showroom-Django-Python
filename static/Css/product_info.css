@@ -1,0 +1,208 @@
+* {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+      font-family: Arial, sans-serif;
+    }
+
+    body {
+      background-color: #000;
+      padding: 0;
+      color: white;
+    }
+
+    /* Header */
+    .header {
+      background-color: #111;
+      padding: 20px;
+      text-align: center;
+      border-bottom: 1px solid #333;
+    }
+
+    .header h1 {
+      font-size: 32px;
+      color: #ffeb3b;
+      margin-bottom: 8px;
+    }
+
+    .header p {
+      font-size: 16px;
+      color: #ccc;
+    }
+
+    /* Main Container */
+    .container {
+      display: flex;
+      flex-wrap: wrap;
+      max-width: 1200px;
+      margin: 20px auto;
+      background-color: #111;
+      border-radius: 10px;
+      /*box-shadow: 0 0 10px rgba(255, 255, 255, 0.1);*/
+      overflow: hidden;
+    }
+
+    .left-side {
+      flex: 1;
+      padding: 20px;
+      /*border-right: 1px solid #333;*/
+      min-width: 650px;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      background-color: #000;
+    }
+
+    .main-car-image {
+      width: 100%;
+      max-width: 100%;
+      border-radius: 10px;
+      /*box-shadow: 0 4px 12px rgba(255, 255, 255, 0.1);*/
+      transition: transform 0.3s ease;
+    }
+
+    .main-car-image:hover {
+      transform: scale(1.02);
+    }
+
+    .right-side {
+      flex: 2;
+      padding: 25px;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+      background-color: #111;
+    }
+
+    .car-title {
+      font-size: 28px;
+      font-weight: bold;
+      margin-bottom: 15px;
+      color: #fff;
+    }
+
+    .car-details {
+      font-size: 16px;
+      line-height: 1.6;
+      margin-bottom: 20px;
+      color: #ccc;
+    }
+
+    .buttons {
+      display: flex;
+      gap: 15px;
+      margin-bottom: 30px;
+    }
+
+    .buttons button {
+      flex: 1;
+      padding: 12px;
+      font-size: 16px;
+      border: none;
+      cursor: pointer;
+      border-radius: 6px;
+      transition: background 0.3s ease;
+      color: white;
+    }
+
+    .add-to-cart {
+      background-color: #e93b06;
+    }
+
+    .add-to-cart:hover {
+      background-color: #df1d0f;
+    }
+
+    .buy-now {
+      background-color: #034605;
+    }
+
+    .buy-now:hover {
+      background-color: #3f9e40;
+    }
+
+    /* Slider */
+    .slider-container {
+      position: relative;
+      overflow: hidden;
+      width: 100%;
+      background-color: #000;
+      border-radius: 10px;
+    }
+
+    .slider {
+      display: flex;
+      transition: transform 0.5s ease;
+    }
+
+    .slide {
+      min-width: 100%;
+      flex-shrink: 0;
+      padding: 10px;
+    }
+
+    .slide img {
+      width: 100%;
+      border-radius: 6px;
+      object-fit: cover;
+      height: 200px;
+      box-shadow: 0 0 10px rgba(255, 255, 255, 0.2);
+    }
+
+    .slider-buttons {
+      position: absolute;
+      top: 50%;
+      width: 100%;
+      display: flex;
+      justify-content: space-between;
+      transform: translateY(-50%);
+      padding: 0 10px;
+    }
+
+    .slider-buttons button {
+      background-color: #000;
+      border: none;
+      color: #ffeb3b;
+      padding: 10px 15px;
+      cursor: pointer;
+      font-size: 22px;
+      border-radius: 50%;
+      transition: background 0.3s ease;
+    }
+
+    .slider-buttons button:hover {
+      background-color: #222;
+    }
+
+    /* Footer */
+    .footer {
+      background-color: #111;
+      padding: 20px;
+      text-align: center;
+      margin-top: 40px;
+      border-top: 1px solid #333;
+    }
+
+    .footer p {
+      color: #777;
+      font-size: 14px;
+      margin-bottom: 5px;
+    }
+
+    @media (max-width: 768px) {
+      .container {
+        flex-direction: column;
+      }
+
+      .buttons {
+        flex-direction: column;
+      }
+
+      .buttons button {
+        width: 100%;
+      }
+
+      .left-side {
+        min-width: 100%;
+      }
+    }

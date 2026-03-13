@@ -1,0 +1,20 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Logged Out</title>
+    <meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate" />
+    <meta http-equiv="Pragma" content="no-cache" />
+    <meta http-equiv="Expires" content="0" />
+    <script type="text/javascript">
+        // Prevent back button
+        history.pushState(null, null, location.href);
+        window.onpopstate = function() {
+            history.go(1);
+        };
+    </script>
+</head>
+<body>
+    <h2>{{ user_name }}, you have been logged out.</h2>
+    <p>Please close this tab. All previous pages are inaccessible.</p>
+</body>
+</html>

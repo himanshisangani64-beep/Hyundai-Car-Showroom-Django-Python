@@ -1,0 +1,189 @@
+{% extends 'includes/header.html' %}
+{% load static %}
+{% block content %}
+
+<link rel="stylesheet" href="{% static 'css/product.css' %}">
+<style>
+  .about-container {
+    width: 90%;
+    margin: auto;
+    overflow: hidden;
+    position: relative;
+    padding: 30px 0;
+  }
+
+  .slider {
+    width: 100%;
+    overflow: hidden;
+    border-radius: 10px;
+    background: #121212;
+    position: relative;
+  }
+
+  .slides {
+    display: flex;
+    transition: transform 0.5s ease-in-out;
+    width: 100%;
+  }
+
+  .slide {
+    flex: 0 0 100%;
+    box-sizing: border-box;
+    padding: 20px;
+    text-align: center;
+    color: #fff;
+  }
+
+  .slide img {
+    width: 100%;
+    max-height: 500px;
+    object-fit: contain;
+    border-radius: 10px;
+  }
+
+  .details {
+    margin-top: 15px;
+  }
+
+  .details h2 {
+    font-size: 24px;
+    color: #d3b568;
+  }
+
+  .details p {
+    color: #ccc;
+  }
+
+  .details .price {
+    font-weight: bold;
+    font-size: 18px;
+    margin-top: 10px;
+    color:#d3b568;
+  }
+
+  .details a {
+    text-decoration: none;
+    color: burlywood;
+  }
+
+  /* Arrows */
+  .arrow {
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+    font-size: 30px;
+    color: #d3b568;
+    background: rgba(0, 0, 0, 0.5);
+    border-radius: 50%;
+    padding: 8px 14px;
+    cursor: pointer;
+    display: none;
+    z-index: 2;
+  }
+
+  .arrow:hover {
+    background: rgba(0, 0, 0, 0.8);
+  }
+
+  .left {
+    left: 10px;
+  }
+
+  .right {
+    right: 10px;
+  }
+
+  input[type="radio"] {
+    display: none;
+  }
+
+  /* Slide movement */
+  {% for product in products %}
+    #s{{ forloop.counter }}:checked ~ .slider .slides {
+      transform: translateX(-{{ forloop.counter0 }}00%);
+    }
+  {% endfor %}
+
+  /* Arrow visibility logic */
+  {% for product in products %}
+    #s{{ forloop.counter }}:checked ~ .slider .left.left{{ forloop.counter }} {
+      display: block;
+    }
+    #s{{ forloop.counter }}:checked ~ .slider .right.right{{ forloop.counter }} {
+      display: block;
+    }
+  {% endfor %}
+
+  .read-more-btn {
+  display: inline-block;
+  padding: 12px 25px;
+  color: #1d1c1cff;
+  background-color: #d3b568;  /* bright blue */
+  border-radius: 6px;
+  text-decoration: none;
+  font-weight: 600;
+  font-size: 16px;
+  box-shadow: 0 0 8px #cea110ff;
+  transition: box-shadow 0.3s ease, color 0.3s ease;
+  position: relative;
+  cursor: pointer;
+}
+
+.read-more-btn:hover,
+.read-more-btn:focus {
+  color: #0e0e0dff;
+  box-shadow:
+    0 0 8px #f8bf0449,
+    0 0 20px #945809ff,
+    0 0 30px #ff51005e;
+  outline: none;
+}
+
+
+  
+</style>
+
+<section class="about-container">
+  <!-- Radio buttons -->
+  {% for product in products %}
+    <input type="radio" name="slide" id="s{{ forloop.counter }}" {% if forloop.first %}checked{% endif %}>
+  {% endfor %}
+
+  <div class="slider">
+    <div class="slides">
+      {% for product in products %}
+        <article class="slide">
+          <img src="{{ product.image.url }}" alt="{{ product.product_name }}">
+          <div class="details">
+            <h2>{{ product.product_name }}</h2><br><br>
+            <p>{{ product.description|default:"No description available." }}</p><br>
+            <p class="price">₹{{ product.price }}</p><br><br>
+            <a  href="{% url 'pro_info' product.id %}" class="read-more-btn" style="color:black">Read More &raquo;</a>
+           {% if product.is_available %}
+            <a href="#" class="read-more-btn" 
+              style="color:black; margin-left:15px; background:#d3b568; padding:5px 10px; border-radius:5px; text-decoration:none;">
+              In Stock: {{ product.stock }}
+            </a>
+            {% else %}
+              <a href="#" class="read-more-btn" 
+                style="color:white; margin-left:15px; background:red; padding:5px 10px; border-radius:5px; text-decoration:none;">
+                ❌ Out of Stock
+              </a>
+            {% endif %}
+          </div>
+        </article>
+      {% endfor %}
+    </div>
+
+    <!-- Left/Right Arrows -->
+    {% for product in products %}
+      {% with i=forloop.counter total=products|length %}
+        <label for="s{% if i == 1 %}{{ total }}{% else %}{{ i|add:"-1" }}{% endif %}" class="arrow left left{{ i }}">&#10094;</label>
+        <label for="s{% if i == total %}1{% else %}{{ i|add:"1" }}{% endif %}" class="arrow right right{{ i }}">&#10095;</label>
+      {% endwith %}
+    {% endfor %}
+  </div>
+</section>
+
+{% include 'includes/footer.html' %}
+{% endblock %}

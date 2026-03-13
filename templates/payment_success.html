@@ -1,0 +1,136 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate" />
+<meta http-equiv="Pragma" content="no-cache" />
+<meta http-equiv="Expires" content="0" />
+
+  <title>Payment Success</title>
+  <style>
+    body {
+      font-family: 'Segoe UI', Tahoma, sans-serif;
+      background: linear-gradient(135deg, #e7cb29ff, #f5f5f5ff);
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      height: 100vh;
+      margin: 0;
+    }
+
+    .box {
+      background: #fff;
+      padding: 40px;
+      border-radius: 16px;
+      text-align: center;
+      box-shadow: 0px 8px 25px rgba(0, 0, 0, 0.15);
+      width: 420px;
+      animation: zoomIn 0.6s ease;
+    }
+
+    /* Progress Bar */
+    .progress-container {
+      width: 100%;
+      background: #e5e7eb;
+      border-radius: 8px;
+      overflow: hidden;
+      height: 18px;
+      margin-bottom: 20px;
+    }
+    .progress-bar {
+      width: 0%;
+      height: 100%;
+      background: #332a03ff;
+      transition: width 2s ease;
+    }
+
+    /* Hidden until progress completes */
+    .success-content {
+      display: none;
+    }
+
+    .logo {
+      font-size: 60px;
+      color: #776309ff;
+      margin-bottom: 15px;
+      animation: bounce 1s infinite alternate;
+    }
+
+    .box h1 {
+      color: #5f570aff;
+      font-size: 28px;
+      margin: 10px 0;
+    }
+
+    .box p {
+      margin-top: 10px;
+      color: #374151;
+      font-size: 16px;
+    }
+
+    .btn {
+      display: inline-block;
+      margin-top: 20px;
+      padding: 12px 25px;
+      background: #3b2d05ff;
+      color: #fff;
+      font-weight: bold;
+      border: none;
+      border-radius: 8px;
+      text-decoration: none;
+      transition: 0.3s;
+    }
+
+    .btn:hover {
+      background: #da8a48ff;
+      transform: scale(1.05);
+    }
+
+    @keyframes zoomIn {
+      from { transform: scale(0.8); opacity: 0; }
+      to { transform: scale(1); opacity: 1; }
+    }
+    @keyframes bounce {
+      from { transform: translateY(0); }
+      to { transform: translateY(-8px); }
+    }
+  </style>
+</head>
+<body>
+  <div class="box">
+    <!-- Progress bar initially -->
+    <div id="progress-section">
+      <h2>Processing Payment...</h2>
+      <div class="progress-container">
+        <div class="progress-bar" id="progress-bar"></div>
+      </div>
+    </div>
+
+    <!-- Success content (hidden at first) -->
+    <div class="success-content" id="success-section">
+      <div class="logo">🛡️</div>
+      <h1>Payment Successful</h1>
+      <p>✅ Thank you! Your payment has been processed securely.</p>
+      <a href="{% url 'home' %}" class="btn">🏠 Back to Home</a>
+    </div>
+  </div>
+
+  <script>
+    // Animate progress bar
+    const progressBar = document.getElementById("progress-bar");
+    const successSection = document.getElementById("success-section");
+    const progressSection = document.getElementById("progress-section");
+
+    setTimeout(() => {
+      progressBar.style.width = "100%";
+    }, 200); // start filling
+
+    // After 2.5s show success message
+    setTimeout(() => {
+      progressSection.style.display = "none";
+      successSection.style.display = "block";
+    }, 2600);
+  </script>
+</body>
+</html>

@@ -1,0 +1,104 @@
+  body {
+      font-family: Arial, sans-serif;
+      margin: 0;
+      padding: 0;
+      background: #e6e79a;
+      height: 100vh;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+    }
+
+    /* Overlay background */
+    .overlay {
+      position: fixed;
+      top: 0; left: 0;
+      width: 100%; height: 100%;
+      background: rgba(0,0,0,0.5);
+      display: flex;
+      justify-content: center;
+      align-items: center;
+    }
+
+    /* Popup box */
+    .popup {
+      background: #fff;
+      width: 400px;
+      border-radius: 8px;
+      box-shadow: 0px 4px 20px rgba(0,0,0,0.2);
+      padding: 25px;
+      position: relative;
+      animation: fadeIn 0.4s ease;
+    }
+
+    /* Close button */
+    .close-btn {
+      position: absolute;
+      top: 12px;
+      right: 15px;
+      font-size: 20px;
+      cursor: pointer;
+      color: #888;
+    }
+    .close-btn:hover {
+      color: #000;
+    }
+
+    /* Logo */
+    .popup .logo {
+      text-align: center;
+      margin-bottom: 15px;
+    }
+    .popup .logo img {
+      width: 60px;
+    }
+    .popup .logo h2 {
+      font-size: 18px;
+      margin-top: 5px;
+      color: #0070ba;
+    }
+
+    /* Input fields */
+    .form-group {
+      margin-bottom: 12px;
+    }
+    .form-group input,
+    .form-group select {
+      width: 100%;
+      padding: 10px;
+      border: 1px solid #ccc;
+      border-radius: 6px;
+      font-size: 14px;
+    }
+
+    /* Flex inputs for first name + last name */
+    .flex-row {
+      display: flex;
+      gap: 10px;
+    }
+    .flex-row input {
+      flex: 1;
+    }
+
+    /* Button */
+    .btn {
+      width: 100%;
+      padding: 12px;
+      background: #0070ba;
+      color: #fff;
+      font-size: 16px;
+      font-weight: bold;
+      border: none;
+      border-radius: 6px;
+      cursor: pointer;
+      margin-top: 10px;
+      transition: 0.3s;
+    }
+    .btn:hover {
+      background: #005c99;
+    }
+
+    @keyframes fadeIn {
+      from { opacity: 0; transform: scale(0.9); }
+      to { opacity: 1; transform: scale(1); }
+    }

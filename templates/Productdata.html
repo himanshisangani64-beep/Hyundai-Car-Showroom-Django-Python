@@ -1,0 +1,82 @@
+{% extends "Dashboard.html" %}
+{% load static %}
+
+{% block title %}Product Information{% endblock %}
+
+{% block content %}
+<link rel="stylesheet" href="{% static 'Css/productdata.css' %}">
+<style>
+  .btn-update {
+      background: #8f860aff;
+      color: #fff;
+    }
+    .btn-delete {
+      background: #d1d37eff;
+      color: #fff;
+      border:none;
+    }
+    th {
+      background: #585306ff;
+      font-weight: 600;
+      color: #f0f2f5ff;
+    }
+     .btn-insert {
+      background: #352e04ff;
+      color: #fff;
+    }
+</style>
+
+<h2 style="margin-bottom: 10px;">Product Information</h2>
+<p style="margin-bottom: 20px;">Welcome to your product overview. Here you can manage your products.</p>
+
+<!-- Insert Button -->
+<div style="margin-bottom: 15px;">
+  <a href="{% url 'addproduct' %}" class="btn btn-insert">+ Add Product</a>
+</div>
+
+<table>
+  <thead>
+    <tr>
+      <th>ID</th>
+      <th>Name</th>
+      <th>Price (₹)</th>
+      <th>Category</th>
+      <th>Sub-category</th>
+      <th>Image</th>
+      <th>Actions</th>
+    </tr>
+  </thead>
+  <tbody>
+    {% for product in products %}
+    <tr>
+      <td>{{ product.id }}</td>
+      <td>
+        {% if product.image %}
+          <img src="{{ product.image.url }}" class="thumb" alt="{{ product.product_name }}">
+        {% else %}
+          <span style="color:#6b7280;">No Image</span>
+        {% endif %}
+      </td>
+      <td>{{ product.product_name }}</td>
+      <td>{{ product.price }}</td>
+      <td>{{ product.category }}</td>
+      <td>{{ product.subcategory }}</td>
+      <td>
+        <a href="{% url 'update_product' product.id %}" class="btn btn-update">Update</a>
+        <form action="{% url 'delete_product' product.id %}" method="post" style="display:inline;">
+    {% csrf_token %}
+    <button type="submit" class="btn btn-delete"
+            onclick="return confirm('Are you sure you want to delete this product?');">
+      Delete
+    </button>
+  </form>
+      </td>
+    </tr>
+    {% empty %}
+    <tr>
+      <td colspan="7" style="text-align:center; color:#6b7280;">No products found.</td>
+    </tr>
+    {% endfor %}
+  </tbody>
+</table>
+{% endblock %}

@@ -1,0 +1,60 @@
+{% extends "Dashboard.html" %}
+{% load static %}
+
+{% block title %}Review Information{% endblock %}
+
+{% block content %}
+<link rel="stylesheet" href="{% static 'Css/reviewdata.css' %}">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+
+<section class="reviews-section">
+  <h2>Customer Reviews & Website Overview</h2>
+  <p class="intro">
+    Welcome to the Hyundai Car Showroom management system.  
+    This platform helps customers explore the latest Hyundai models, book test drives, place orders, and share their experiences.  
+    Below are highlights from customer reviews and overall satisfaction.
+  </p>
+
+  <!-- Overall rating -->
+  <div class="overall-rating">
+    <h3>Overall Rating</h3>
+    <div class="stars">
+      <i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i>
+      <i class="fas fa-star"></i><i class="fas fa-star"></i>
+    </div>
+    <p class="total-reviews">Based on <span>297</span> customer reviews</p>
+  </div>
+
+  <!-- Review cards -->
+  <div class="reviews-cards">
+    <div class="card">
+      <h3>Website Experience</h3>
+      <div class="stars small">
+        <i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i>
+        <i class="fas fa-star"></i><i class="fas fa-star"></i>
+      </div>
+      <p>Customers appreciated the clean layout, easy navigation, and quick booking system.</p>
+    </div>
+
+    <div class="card">
+      <h3>Car Information</h3>
+      <div class="stars small">
+        <i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i>
+        <i class="fas fa-star"></i><i class="fas fa-star-half-alt"></i>
+      </div>
+      <p>Users found car details comprehensive, with pricing, specifications, and images well organized.</p>
+    </div>
+
+    <div class="card">
+      <h3>Customer Support</h3>
+      <div class="stars small">
+        <i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i>
+        <i class="fas fa-star"></i><i class="fas fa-star"></i>
+      </div>
+      <p>Support team was praised for quick responses and smooth assistance during booking and queries.</p>
+    </div>
+  </div>
+
+  <p class="certified">Collected & Certified by <strong>Hyundai CarWay</strong></p>
+</section>
+{% endblock %}

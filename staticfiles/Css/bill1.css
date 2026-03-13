@@ -1,0 +1,232 @@
+*, *::before, *::after {
+  box-sizing: border-box;
+}
+
+body {
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  background: #f9fafb;
+  margin: 0;
+  padding: 2rem;
+  color: #1e293b;
+  display: flex;
+  justify-content: center;
+}
+
+.invoice-container {
+  background: #fff;
+  border: 1px solid #cbd5e1;
+  max-width: 720px;
+  width: 100%;
+  padding: 2rem 2.5rem 3rem;
+  box-shadow: 0 6px 20px rgb(71 63 79 / 0.1);
+  color: #334155;
+}
+
+.header {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  flex-wrap: wrap;
+  gap: 1rem;
+}
+
+.logo img {
+  width: 60px;
+  height: auto;
+  padding-top: 20px;
+}
+
+.invoice-title-section {
+  max-width: 300px;
+  text-align: right;
+}
+
+.invoice-title-section h1 {
+  font-weight: 700;
+  font-size: 1.4rem;
+  margin: 0 0 0.2rem;
+  letter-spacing: 0.06em;
+  color: #1e293b;
+}
+
+.invoice-title-section small {
+  font-size: 0.75rem;
+  font-weight: 600;
+  color: #475569;
+  line-height: 1.3;
+}
+
+.date {
+  margin-top: 1rem;
+  font-weight: 600;
+  font-size: 0.9rem;
+  color: #475569;
+}
+
+.invoice-number {
+  font-weight: 700;
+  font-size: 0.85rem;
+  margin: 1.5rem 0 1rem;
+  color: #323f4b;
+}
+
+/* Top Info Section */
+.top-info {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 1.5rem;
+  margin-bottom: 2rem;
+}
+
+.bill-to, .dealer-info {
+  flex: 1 1 320px;
+  border: 1px solid #cbd5e1;
+  padding: 1rem 1.2rem;
+  border-radius: 2px;
+  background: #f1f5f9;
+}
+
+.back {
+  background-color: rgba(211, 181, 104, 0.2);
+}
+
+.info-grid {
+  display: grid;
+  grid-template-columns: 40% 1fr;
+  gap: 0.4rem 0.8rem;
+  font-size: 0.85rem;
+  margin-top: 0.5rem;
+  color: #475569;
+}
+
+.info-grid .label {
+  font-weight: 600;
+  color: #0f172a;
+}
+
+.section-title {
+  font-size: 1.1rem;
+  font-weight: 700;
+  color: #1e293b;
+  margin: 1.5rem 0 0.8rem;
+  border-bottom: 2px solid #cbd5e1;
+  padding-bottom: 0.2rem;
+}
+
+/* Vehicle Details */
+.vehicle-grid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 0.6rem 1.2rem;
+  font-size: 0.9rem;
+  margin-bottom: 2rem;
+}
+
+.vehicle-grid .label {
+  font-weight: 600;
+  color: #0f172a;
+}
+
+.vehicle-grid .value {
+  color: #475569;
+}
+
+/* Summary */
+.summary {
+  max-width: 300px;
+  margin-left: auto;
+  font-size: 0.95rem;
+  color: #1e293b;
+}
+
+.summary div {
+  display: flex;
+  justify-content: space-between;
+  padding: 0.25rem 0;
+  border-bottom: 1px solid transparent;
+}
+
+.summary div:not(:last-child):not(.grand-total) {
+  border-bottom-color: #cbd5e1;
+}
+
+.summary .label {
+  font-weight: 600;
+  color: #475569;
+}
+
+.summary .grand-total .label,
+.summary .grand-total .value {
+  font-weight: 700;
+  color: #0f172a;
+}
+
+/* Amount in Words & Footer */
+.amount-words,
+.footer-text {
+  font-size: 0.75rem;
+  color: #94a3b8;
+  text-align: center;
+}
+
+.amount-words {
+  margin-top: 3rem;
+  font-style: italic;
+}
+
+.footer-text {
+  margin-top: 0.4rem;
+}
+
+/* Payment Button */
+.center-button {
+  text-align: center;
+  margin-top: 2rem;
+}
+
+.payment-button {
+  display: inline-block;
+  padding: 12px 24px;
+  background-color: #007bff;
+  color: white;
+  text-decoration: none;
+  font-weight: bold;
+  border-radius: 5px;
+  transition: background-color 0.3s ease;
+}
+
+.payment-button:hover {
+  background-color: #0056b3;
+}
+
+/* Responsive Adjustments */
+@media (max-width: 600px) {
+  .header {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 0.7rem;
+  }
+
+  .invoice-title-section {
+    max-width: 100%;
+    text-align: left;
+  }
+
+  .top-info {
+    flex-direction: column;
+  }
+
+  .bill-to, .dealer-info {
+    flex: 1 1 100%;
+  }
+
+  .vehicle-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .summary {
+    max-width: 100%;
+    margin-left: 0;
+    margin-top: 1rem;
+  }
+}

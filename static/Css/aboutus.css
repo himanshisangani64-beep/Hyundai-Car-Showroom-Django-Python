@@ -1,0 +1,318 @@
+/* -------------------------
+  Base & Reset
+-------------------------- */
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+html, body {
+  height: 100%;
+  overflow-y: scroll;
+  font-family: Arial, sans-serif;
+  background-color: #241f1f;
+  color: #fff;
+  line-height: 1.6;
+}
+
+/* Hide scrollbar */
+html::-webkit-scrollbar,
+body::-webkit-scrollbar {
+  display: none;
+}
+
+body {
+  padding: 20px;
+  scrollbar-width: none;
+  -ms-overflow-style: none;
+}
+
+/* -------------------------
+  Typography
+-------------------------- */
+h1 {
+  font-size: 3rem;
+  font-weight: 900;
+  text-transform: uppercase;
+  color: #d3b568;
+  margin-bottom: 15px;
+  letter-spacing: 1.5px;
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+}
+
+h2 {
+  font-size: 1.1rem;
+  font-weight: 700;
+  margin-bottom: 40px;
+  line-height: 1.3;
+  color: #d88541;
+}
+
+h3 {
+  font-size: 1.1rem;
+  font-weight: 700;
+  margin-bottom: 15px;
+  text-transform: uppercase;
+  color: #bb7835;
+}
+
+p {
+  font-size: 1.1rem;
+  line-height: 1.4;
+  color: #eee;
+  margin-bottom: 20px;
+  max-width: 450px;
+}
+
+/* -------------------------
+  Layout Containers
+-------------------------- */
+.container {
+  max-width: 900px;
+  margin: 40px auto;
+  padding: 0 20px;
+  text-align: center;
+  width: 100%;
+}
+
+.about-container {
+  width: 100%;
+  height: 70vh;
+  position: relative;
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  align-items: center;
+  padding: 40px 30px;
+  background: url('../images/photo/ab.png') no-repeat center center/cover;
+  border-radius: 8px;
+  box-shadow: rgba(0,0,0,0.7) 0 0 15px;
+}
+
+.about-container::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: rgba(0, 0, 0, 0.6);
+  border-radius: 8px;
+  z-index: 0;
+}
+
+.left,
+.right {
+  flex: 1 1 300px;
+  z-index: 1;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+
+.left {
+  padding-right: 40px;
+}
+
+.right {
+  margin-top: -100px;
+  margin-left: 350px;
+}
+
+/* -------------------------
+  Phone Box
+-------------------------- */
+.phone-box {
+  background-color: #d3b568;
+  color: #fff;
+  padding: 20px 30px;
+  border-radius: 12px;
+  max-width: 400px;
+  height: 150px;
+  font-weight: 700;
+  box-shadow: 0 5px 15px rgba(229, 70, 0, 0.5);
+  margin: 390px auto 0;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+}
+
+.phone-box small {
+  font-size: 0.9rem;
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+  margin-bottom: 8px;
+}
+
+.phone-box .phone-number {
+  font-size: 2rem;
+  letter-spacing: 1.5px;
+}
+
+/* -------------------------
+  Experience Section
+-------------------------- */
+.divider {
+  width: 60px;
+  height: 4px;
+  background-color: #ccc;
+  margin: 0 auto 40px;
+}
+
+.columns {
+  display: flex;
+  gap: 40px;
+  justify-content: center;
+  flex-wrap: wrap;
+}
+
+.column {
+  flex: 1 1 300px;
+  max-width: 400px;
+  text-align: left;
+}
+
+/* -------------------------
+  Services Section
+-------------------------- */
+.services {
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  color: white;
+  min-height: 100vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 40px 20px;
+  background: url('../images/photo/ab02.png') no-repeat center center/cover;
+  position: relative;
+  border-radius: 10px;
+  box-shadow: rgba(58, 56, 56, 0.7) 0 0 15px;
+}
+
+.services::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: rgba(38, 38, 38, 0.8);
+  z-index: 0;
+}
+
+.services > * {
+  z-index: 1;
+}
+
+.hr-underline {
+  width: 60px;
+  height: 5px;
+  background: white;
+  border-radius: 3px;
+  border: 0;
+  margin: 0 auto 40px auto;
+}
+
+.content-columns {
+  display: flex;
+  justify-content: space-between;
+  gap: 40px;
+  flex-wrap: wrap;
+}
+
+.content-columns p {
+  flex: 1 1 45%;
+  font-size: 1rem;
+  line-height: 1.5;
+  color: #dddddd;
+}
+
+/* -------------------------
+  Overlay (optional global)
+-------------------------- */
+.overlay {
+  position: fixed;
+  inset: 0;
+  background-color: rgba(38, 38, 38, 0.8);
+  z-index: -1;
+}
+
+/* -------------------------
+  Responsive Media Queries
+-------------------------- */
+
+/* Tablets */
+@media (max-width: 1024px) {
+  .columns,
+  .content-columns {
+    flex-direction: column;
+    align-items: center;
+  }
+
+  .left,
+  .right {
+    margin: 0;
+    padding: 20px 0;
+    text-align: center;
+  }
+
+  .about-container {
+    padding: 30px 20px;
+  }
+
+  h1 {
+    font-size: 2.5rem;
+  }
+}
+
+/* Phones */
+@media (max-width: 600px) {
+  h1 {
+    font-size: 2rem;
+  }
+
+  h2 {
+    font-size: 1rem;
+  }
+
+  .about-container,
+  .services {
+    padding: 20px;
+  }
+
+  .phone-box {
+    max-width: 100%;
+    margin: 40px 10px;
+  }
+
+  .content-columns p {
+    flex: 1 1 100%;
+    text-align: left;
+    margin-bottom: 20px;
+  }
+}
+
+/* Extra-Large Screens */
+@media (min-width: 1600px) {
+  h1 {
+    font-size: 4rem;
+  }
+
+  .container {
+    max-width: 1400px;
+  }
+
+  .about-container {
+    min-height: 80vh;
+  }
+
+  .services {
+    min-height: 90vh;
+  }
+
+  p {
+    font-size: 1.25rem;
+  }
+
+  .phone-box {
+    max-width: 500px;
+    font-size: 1.2rem;
+  }
+}

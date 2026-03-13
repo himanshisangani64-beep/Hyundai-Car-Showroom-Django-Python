@@ -1,0 +1,280 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate" />
+  <meta http-equiv="Pragma" content="no-cache" />
+  <meta http-equiv="Expires" content="0" />
+
+  <title>{% block title %}Hyundai Dashboard{% endblock %}</title>
+  <link rel="stylesheet" href="{% static 'css/dashboard.css' %}">
+  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+  <style>
+    /* Sidebar Styling */
+    .sidebar {
+      width: 240px;
+      background: linear-gradient(180deg, #0f0f0f, #141516);
+      color: #fff;
+      padding: 20px;
+      height: 100vh;
+      position: fixed;
+      top: 0;
+      left: 0;
+      display: flex;
+      flex-direction: column;
+    }
+    .sidebar h2 {
+      text-align: center;
+      margin-bottom: 30px;
+      font-size: 22px;
+      color: #503909ff;
+    }
+    .sidebar .menu {
+      list-style: none;
+      padding: 0;
+    }
+    .sidebar .menu li {
+      margin: 12px 0;
+    }
+    .sidebar .menu li a {
+      text-decoration: none;
+      color: #fff;
+      padding: 10px 15px;
+      display: block;
+      border-radius: 8px;
+      transition: all 0.3s ease;
+      font-weight: 500;
+    }
+    .sidebar .menu li a:hover {
+      background: #cf9923 !important;
+      color: #000 !important;
+      transform: translateX(5px);
+    }
+
+    /* Main Content */
+    .main {
+      margin-left: 240px;
+      padding: 20px;
+      background: #f4f4f4;
+      min-height: 100vh;
+    }
+
+    .topbar {
+      background: #fff;
+      padding: 15px 20px;
+      border-radius: 8px;
+      margin-bottom: 20px;
+      box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+    .topbar h1 {
+      font-size: 20px;
+      color: #000;
+    }
+    .topbar input {
+      padding: 8px 12px;
+      border: 1px solid #ccc;
+      border-radius: 6px;
+    }
+
+    /* Cards */
+    .cards {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+      gap: 20px;
+      margin-bottom: 20px;
+    }
+    .card {
+      background: #fff;
+      padding: 20px;
+      border-radius: 10px;
+      box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+      text-align: center;
+      border-top: 4px solid #cf9923;
+    }
+    .card h3 {
+      margin-bottom: 10px;
+      font-size: 18px;
+      color: #444;
+    }
+    .card p {
+      font-size: 22px;
+      font-weight: bold;
+      color: #97af4f;
+    }
+
+    /* Widgets */
+    .widgets {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+      gap: 20px;
+      margin-top: 20px;
+    }
+    .widget {
+      background: #fff;
+      padding: 20px;
+      border-radius: 10px;
+      box-shadow: 0 2px 6px rgba(0,0,0,0.1);
+    }
+    .widget h3 {
+      margin-bottom: 15px;
+      font-size: 18px;
+      color: #000;
+    }
+
+    /* Sales Process */
+    .sales-process {
+      margin-top: 40px;
+      background: #fff;
+      padding: 25px;
+      border-radius: 12px;
+      box-shadow: 0 2px 6px rgba(0,0,0,0.1);
+      text-align: center;
+    }
+    .sales-process h2 {
+      margin-bottom: 20px;
+      font-size: 20px;
+      color: #cf9923;
+    }
+    .process-circle {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 15px;
+      flex-wrap: wrap;
+    }
+    .step {
+      text-align: center;
+    }
+    .circle {
+      width: 65px;
+      height: 65px;
+      border-radius: 50%;
+      background: #97af4f;
+      color: #fff;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      font-size: 18px;
+      font-weight: bold;
+      margin-bottom: 8px;
+      box-shadow: 0 3px 8px rgba(0,0,0,0.15);
+      transition: 0.3s;
+    }
+    .circle:hover {
+      background: #cf9923;
+      color: #000;
+      transform: scale(1.1);
+    }
+    .arrow {
+      font-size: 22px;
+      color: #444;
+    }
+  </style>
+</head>
+<body>
+  <!-- Sidebar -->
+  <div class="sidebar">
+    <h2><a href="{% url 'dashboard' %}" style="text-decoration:none;color: #cf9923;">Hyundai</a></h2>
+    <ul class="menu">
+      <li><a href="{% url 'admindata' %}">Dashboard</a></li>
+      <li><a href="{% url 'userdata' %}">User Information</a></li>
+      <li><a href="{% url 'orderdata' %}">Order Information</a></li>
+      <li><a href="{% url 'productdata' %}">Car Information</a></li>
+      <li><a href="{% url 'reviewdata' %}">Review & Comment</a></li>
+      <li><a href="{% url 'report'%}">Report</a></li>
+      <li><a href="{% url 'logout1' %}">Logout</a></li>
+    </ul>
+  </div>
+
+  <!-- Main -->
+  <div class="main">
+    {% block content %}
+    <div class="topbar">
+      <h1> AdMin  Dashboard</h1>
+      
+    </div>
+
+    <!-- Cards -->
+    <div class="cards">
+      <div class="card"><h3>Total Users</h3><p>1,234</p></div>
+      <div class="card"><h3>Total Cars</h3><p>567</p></div>
+      <div class="card"><h3>Total Orders</h3><p>890</p></div>
+      <div class="card"><h3>Revenue</h3><p>$45,200</p></div>
+    </div>
+
+    <!-- Widgets -->
+    <div class="widgets">
+      <div class="widget"><h3>Monthly Sales</h3><canvas id="salesChart"></canvas></div>
+      <div class="widget"><h3>Sub-Category Sales</h3><canvas id="subCategoryChart"></canvas></div>
+      <div class="widget"><h3>Service Statistics</h3><canvas id="serviceChart"></canvas></div>
+    </div>
+
+    <!-- Sales Process -->
+    <div class="sales-process">
+      <h2>Monthly Sales Process</h2>
+      <div class="process-circle">
+        <div class="step"><div class="circle">1</div><p>Lead</p></div>
+        <div class="arrow">➜</div>
+        <div class="step"><div class="circle">2</div><p>Enquiry</p></div>
+        <div class="arrow">➜</div>
+        <div class="step"><div class="circle">3</div><p>Test Drive</p></div>
+        <div class="arrow">➜</div>
+        <div class="step"><div class="circle">4</div><p>Booking</p></div>
+        <div class="arrow">➜</div>
+        <div class="step"><div class="circle">5</div><p>Delivery</p></div>
+      </div>
+    </div>
+    {% endblock %}
+  </div>
+
+  <!-- Chart Scripts -->
+  <script>
+    // Monthly Sales Chart
+    new Chart(document.getElementById("salesChart"), {
+      type: "line",
+      data: {
+        labels: ["Jan","Feb","Mar","Apr","May","Jun","Jul","Aug"],
+        datasets: [{
+          label: "Sales",
+          data: [50, 80, 60, 100, 90, 120, 140, 160],
+          borderColor: "#cf9923",
+          backgroundColor: "rgba(207,153,35,0.2)",
+          fill: true,
+          tension: 0.3
+        }]
+      }
+    });
+
+    // Sub-Category Chart
+    new Chart(document.getElementById("subCategoryChart"), {
+      type: "bar",
+      data: {
+        labels: ["Sedan", "SUV", "Hatchback", "Luxury"],
+        datasets: [{
+          label: "Units Sold",
+          data: [120, 200, 90, 60],
+          backgroundColor: ["#cf9923","#97af4f","#000","#555"],
+          borderRadius: 6
+        }]
+      },
+      options: { plugins: { legend: { display: false } }, scales: { y: { beginAtZero: true } } }
+    });
+
+    // Service Chart
+    new Chart(document.getElementById("serviceChart"), {
+      type: "doughnut",
+      data: {
+        labels: ["Maintenance","Insurance","Accessories","Finance"],
+        datasets: [{
+          data: [45, 25, 15, 15],
+          backgroundColor: ["#cf9923","#97af4f","#000","#555"]
+        }]
+      }
+    });
+  </script>
+</body>
+</html>

@@ -1,0 +1,82 @@
+.order-container {
+    max-width: 1000px;
+    margin: 40px auto;
+    padding: 20px;
+    background: #3b3b3b;
+    border-radius: 8px;
+    box-shadow: 0 0 10px rgba(0,0,0,0.1);
+    font-family: 'Segoe UI', sans-serif;
+}
+
+.order-header {
+    text-align: center;
+    margin-bottom: 30px;
+}
+
+.order-content {
+    display: flex;
+    gap: 30px;
+    flex-wrap: wrap;
+}
+
+.order-left, .order-right {
+    flex: 1;
+    min-width: 300px;
+}
+
+.details-box, .summary-box {
+    background-color: #111111;
+    padding: 20px;
+    border-radius: 6px;
+    margin-bottom: 20px;
+}
+
+.product-table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-top: 10px;
+}
+
+.product-table th, .product-table td {
+    padding: 10px;
+    border-bottom: 1px solid #ddd;
+}
+
+.final-amount {
+    font-size: 18px;
+    font-weight: bold;
+    color: #d9534f;
+    margin-left: 200px;
+}
+
+.action-buttons {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}
+
+.btn {
+    padding: 12px 16px;
+    font-size: 16px;
+    text-decoration: none;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    display: inline-block;
+    text-align: center;
+}
+
+.btn-primary {
+    background-color: #afd119;
+    color: rgb(10, 10, 10);
+    width: 460px;
+}
+
+.btn-secondary {
+    background-color: #dfa70c;
+    color: rgb(32, 32, 32);
+}
+
+.btn:hover {
+    opacity: 0.9;
+}

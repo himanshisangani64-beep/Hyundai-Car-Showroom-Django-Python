@@ -1,0 +1,256 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate" />
+<meta http-equiv="Pragma" content="no-cache" />
+<meta http-equiv="Expires" content="0" />
+
+  <title>Hyundai Tax Invoice</title>
+  <style>
+    body {
+      font-family: 'Segoe UI', Tahoma, sans-serif;
+      background: #ffffffff;
+      margin: 0;
+      padding: 20px;
+      font-size: 12pt;
+      color: #1e293b;
+    }
+
+    .invoice-container {
+      max-width: 900px;
+      margin: auto;
+      padding: 20px;
+      border: 1px solid #cbd5e1;
+    }
+
+    /* Header */
+    .header {
+      width: 100%;
+      display: table;
+      margin-bottom: 20px;
+    }
+    .header .logo {
+      display: table-cell;
+      vertical-align: top;
+      width: 50%;
+    }
+    .header .logo img {
+      width: 150px;
+    }
+    .header .invoice-title-section {
+      display: table-cell;
+      text-align: right;
+      width: 50%;
+      font-size: 10pt;
+      color: #64748b;
+    }
+    .invoice-number {
+      margin: 15px 0;
+      font-weight: bold;
+      font-size: 11pt;
+      padding: 6px 10px;
+      border-left: 4px solid #2563eb;
+      background: #f8fafc;
+    }
+
+    /* Info sections */
+    .info-section {
+      width: 100%;
+      margin-top: 15px;
+      border-collapse: collapse;
+    }
+    .info-section td {
+      vertical-align: top;
+      padding: 10px;
+      border: 1px solid #cbd5e1;
+      width: 50%;
+      font-size: 10pt;
+    }
+    .info-section strong {
+      display: block;
+      margin-bottom: 6px;
+      font-size: 11pt;
+      color: #0f172a;
+    }
+    .label {
+      font-weight: 600;
+      color: #0f172a;
+    }
+    .value {
+      color: #475569;
+    }
+
+    /* Vehicle table */
+    .section-title {
+      margin-top: 20px;
+      font-weight: bold;
+      font-size: 12pt;
+      border-bottom: 2px solid #cbd5e1;
+      padding-bottom: 4px;
+    }
+    .product-table {
+      width: 100%;
+      border-collapse: collapse;
+      margin-top: 10px;
+      font-size: 10pt;
+    }
+    .product-table th, .product-table td {
+      border: 1px solid #cbd5e1;
+      padding: 8px;
+      text-align: center;
+    }
+    .product-table thead {
+      background: #f1f5f9;
+    }
+
+    /* Summary */
+    .summary {
+      width: 40%;
+      margin-left: auto;
+      margin-top: 20px;
+      border: 1px solid #cbd5e1;
+      padding: 10px;
+      font-size: 10pt;
+    }
+    .summary div {
+      display: flex;
+      justify-content: space-between;
+      margin: 4px 0;
+    }
+    .grand-total {
+      border-top: 2px solid #cbd5e1;
+      margin-top: 6px;
+      padding-top: 6px;
+      font-weight: bold;
+    }
+
+    .amount-words {
+      font-style: italic;
+      font-size: 9pt;
+      margin-top: 15px;
+      border-top: 1px dashed #cbd5e1;
+      padding-top: 5px;
+      text-align: center;
+    }
+
+    .footer-text {
+      font-size: 9pt;
+      text-align: center;
+      color: #94a3b8;
+      margin-top: 10px;
+    }
+
+    /* Hide button in PDF */
+    .center-button {
+      text-align: center;
+      margin-top: 20px;
+    }
+    .payment-button {
+      background: #775908ff;
+      color: #fff;
+      padding: 10px 20px;
+      text-decoration: none;
+      border-radius: 4px;
+      font-weight: bold;
+      display: inline-block;
+    }
+  </style>
+</head>
+<body>
+  <div class="invoice-container">
+
+    <!-- Header -->
+    <div class="header">
+      <div class="logo">
+        <img src="{% static 'images/photo/Hy1.png' %}" alt="Hyundai Logo"/>
+      </div>
+      <div class="invoice-title-section">
+        Hyundai Motor India Limited<br/>
+        Corporate Office Address, Amreli, India<br/>
+        <span>Date: {{ date }}</span>
+      </div>
+    </div>
+
+    <div class="invoice-number">
+      Invoice #: INV-HY000{{ order.id }}
+    </div>
+
+    <!-- Info -->
+    <table class="info-section">
+      <tr>
+        <td>
+          <strong>Bill To</strong>
+          <div><span class="label">Customer:</span> {{ order.customer_name }}</div>
+          <div><span class="label">Address:</span> {{ order.address }}</div>
+          <div><span class="label">GSTIN:</span> 27ABCDE1234F1Z5</div>
+        </td>
+        <td>
+          <strong>Dealer Info</strong>
+          <div><span class="label">Dealer Name:</span> Hyundai Amreli</div>
+          <div><span class="label">Dealer Code:</span> DLR-RJK-54321</div>
+          <div><span class="label">GSTIN:</span> 24ABCDE5678G2Z3</div>
+        </td>
+      </tr>
+    </table>
+
+    <!-- Vehicle Table -->
+    <div class="section-title">Vehicle Details</div>
+    <table class="product-table">
+      <thead>
+        <tr>
+          <th>Model</th>
+          <th>Fuel Type</th>
+          <th>Transmission</th>
+          <th>Price</th>
+          <th>Tax (20%)</th>
+          <th>Total</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td>{{ car_model }}</td>
+          <td>Petrol & CNG</td>
+          <td>5-Speed Manual</td>
+          <td>₹ {{ order.total_price }}</td>
+          <td>₹ {{ tax }}</td>
+          <td><strong>₹ {{ grand_total }}</strong></td>
+        </tr>
+      </tbody>
+    </table>
+
+    <!-- Summary -->
+    <div class="summary">
+      <div><span class="label">Subtotal:</span> <span>₹ {{ order.total_price }}</span></div>
+      <div><span class="label">Tax (20%):</span> <span>₹ {{ tax }}</span></div>
+      <div class="grand-total">
+        <span class="label">Grand Total:</span> <span>₹ {{ grand_total }}</span>
+      </div>
+    </div>
+
+    <div class="amount-words">Amount in Words: {{ amount_in_words }}</div>
+    <div class="footer-text">Thank you for choosing Hyundai.</div>
+
+    {% if not is_pdf %}
+    <div class="center-button">
+      <a href="#" onclick="confirmPrint({{ order.id }})" class="payment-button">Offline Payment</a>
+      <a href="{% url 'payment' %}"><button class="payment-button">Online Payment</button></a>
+    </div>
+    {% endif %}
+  </div>
+
+  {% if not is_pdf %}
+  <script>
+    function confirmPrint(orderId) {
+      const wantsPdf = confirm("Your Payment was successful. Do you want to print the bill?");
+      if (wantsPdf) {
+        window.location.href = `/bill/pdf/${orderId}/`;
+      } else {
+        window.location.href = `/bill/html/${orderId}/`;
+      }
+    }
+  </script>
+  {% endif %}
+</body>
+</html>
